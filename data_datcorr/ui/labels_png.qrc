@@ -1,0 +1,7 @@
+<RCC>
+  <qresource prefix="ips">
+    <file>base_maternidad.png</file>
+    <file>base_pediatrico.png</file>
+    <file>base_ips.png</file>
+  </qresource>
+</RCC>

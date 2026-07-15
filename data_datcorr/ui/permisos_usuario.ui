@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditarUsuario</class>
+ <widget class="QDialog" name="EditarUsuario">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>389</width>
+    <height>335</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Editar Usuario</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="QListView" name="listView_permisos_disponibles"/>
+   </item>
+   <item row="2" column="2">
+    <widget class="QPushButton" name="pushButton_guardar">
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 170, 0);
+font: 900 9pt &quot;Segoe UI&quot;;</string>
+     </property>
+     <property name="text">
+      <string>ACEPTAR</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="QPushButton" name="pushButton_asignar">
+     <property name="styleSheet">
+      <string notr="true">alternate-background-color: rgb(0, 170, 0);</string>
+     </property>
+     <property name="text">
+      <string>➕ Asignar</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2" colspan="2">
+    <widget class="QListView" name="listView_permisos_asignados">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="3">
+    <widget class="QPushButton" name="pushButton_guardar_2">
+     <property name="styleSheet">
+      <string notr="true">
+font: 700 11pt &quot;Arial&quot;;
+background-color: rgb(252, 73, 2);</string>
+     </property>
+     <property name="text">
+      <string>CANCELAR</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="1">
+    <widget class="QPushButton" name="pushButton_quitar">
+     <property name="styleSheet">
+      <string notr="true">alternate-background-color: rgb(170, 170, 0);</string>
+     </property>
+     <property name="text">
+      <string>➖ Quitar</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" colspan="4">
+    <widget class="Line" name="line">
+     <property name="lineWidth">
+      <number>0</number>
+     </property>
+     <property name="midLineWidth">
+      <number>1000</number>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Orientation::Horizontal</enum>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

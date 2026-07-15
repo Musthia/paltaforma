@@ -1,0 +1,13 @@
+	"CONSULTAR"	"Consultar registros"
+	"EDITAR"	"Editar registros"
+	"ELIMINAR"	"Eliminar registros"
+	"EXPORTAR"	"Exportar información"
+	"IMPORTAR"	"Importar archivos"
+	"ADMIN_USUARIOS"	"Administrar usuarios"
+
+
+	1	1
+	1	6
+	1	5
+	6	3
+	6	5

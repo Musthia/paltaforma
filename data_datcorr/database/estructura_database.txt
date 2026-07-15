@@ -1,0 +1,31 @@
+Listado de rutas de carpetas
+El número de serie del volumen es 000000D1 5404:A2D1
+C:.
+¦   conexion.py
+¦   crear_tablas.py
+¦   estructura_database.txt
+¦   modelos.py
+¦   modelos_auditoria.py
+¦   modelos_blacklist.py
+¦   modelos_refresh.py
+¦   recursos.qrc
+¦   session.py
+¦   __init__.py
+¦   
++---crud
+¦   ¦   crud_usuarios.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---__pycache__
+¦           crud_usuarios.cpython-39.pyc
+¦           __init__.cpython-39.pyc
+¦           
++---__pycache__
+        conexion.cpython-39.pyc
+        modelos.cpython-39.pyc
+        modelos_auditoria.cpython-39.pyc
+        modelos_blacklist.cpython-39.pyc
+        modelos_refresh.cpython-39.pyc
+        session.cpython-39.pyc
+        __init__.cpython-39.pyc
+        

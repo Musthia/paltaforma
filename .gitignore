@@ -1,0 +1,98 @@
+# =========================
+# 🐍 Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+
+# Entornos virtuales
+venv/
+env/
+.venv/
+lib/
+bin/
+scripts/
+include/
+pyvenv.cfg
+
+# =========================
+# ARCHIVOS SENSIBLES
+# =========================
+.env
+*.env
+config_local.py
+secret.py
+
+# =========================
+# 🧠 IDEs / Editores
+# =========================
+.vscode/
+.idea/
+copias/
+
+# =========================
+# 🗄️ Base de datos (NO versionar)
+# =========================
+*.db
+*.sqlite
+*.sqlite3
+
+# =========================
+# 📂 Archivos generados
+# =========================
+*.log
+*.tmp
+*.bak
+
+# =========================
+# ARCHIVOS TEMPORALES
+# =========================
+temp/
+tmp/
+*.tmp
+.COPIAS/
+
+# =========================
+# 🖼️ Imágenes generadas
+# =========================
+#img/
+aplicaciones/
+
+
+# =========================
+# 📦 Builds
+# =========================
+build/
+dist/
+*.exe
+*.lnk
+*.spec
+*_rc.py
+
+# =========================
+# 🔐 Variables sensibles
+# =========================
+.env
+
+# =========================
+# 🧾 Sistema
+# =========================
+.DS_Store
+Thumbs.db
+
+# =========================
+# 🧪 Cache / testing
+# =========================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# =========================
+# WINDOWS
+# =========================
+Thumbs.db
+desktop.ini
+
+bases_g/

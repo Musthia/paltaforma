@@ -1,0 +1,80 @@
+Listado de rutas de carpetas
+El número de serie del volumen es 5404-A2D1
+C:\DATA_DATCORR\BACKEND
+¦   dependencies.py
+¦   main.py
+¦   
++---core
+¦   ¦   exceptions.py
+¦   ¦   handlers.py
+¦   ¦   logger.py
+¦   ¦   
+¦   +---__pycache__
+¦           exceptions.cpython-39.pyc
+¦           handlers.cpython-39.pyc
+¦           logger.cpython-39.pyc
+¦           
++---database
+¦   ¦   conexion.py
+¦   ¦   
+¦   +---__pycache__
+¦           conexion.cpython-39.pyc
+¦           
++---middleware
+¦   ¦   jwt_middleware.py
+¦   ¦   
+¦   +---__pycache__
+¦           jwt_middleware.cpython-39.pyc
+¦           
++---routers
+¦   ¦   admin_router.py
+¦   ¦   auth_router.py
+¦   ¦   test_router.py
+¦   ¦   usuarios_router.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---__pycache__
+¦           admin_router.cpython-39.pyc
+¦           auth_router.cpython-39.pyc
+¦           usuarios_router.cpython-39.pyc
+¦           __init__.cpython-39.pyc
+¦           
++---schemas
+¦   ¦   auth_schema.py
+¦   ¦   refresh_schema.py
+¦   ¦   usuario_schema.py
+¦   ¦   __init__.py
+¦   ¦   
+¦   +---__pycache__
+¦           auth_schema.cpython-39.pyc
+¦           refresh_schema.cpython-39.pyc
+¦           usuario_schema.cpython-39.pyc
+¦           __init__.cpython-39.pyc
+¦           
++---security
+¦   ¦   jwt_bearer.py
+¦   ¦   jwt_manager.py
+¦   ¦   permissions.py
+¦   ¦   
+¦   +---__pycache__
+¦           jwt_bearer.cpython-39.pyc
+¦           jwt_manager.cpython-39.pyc
+¦           permissions.cpython-39.pyc
+¦           
++---services
+¦   ¦   auditoria_service.py
+¦   ¦   auth_service.py
+¦   ¦   blacklist_service.py
+¦   ¦   usuarios_service.py
+¦   ¦   usuario_service_web.py
+¦   ¦   
+¦   +---__pycache__
+¦           auditoria_service.cpython-39.pyc
+¦           auth_service.cpython-39.pyc
+¦           blacklist_service.cpython-39.pyc
+¦           usuarios_service.cpython-39.pyc
+¦           
++---__pycache__
+        dependencies.cpython-39.pyc
+        main.cpython-39.pyc
+        

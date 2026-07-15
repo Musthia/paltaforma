@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="fondo">
+    <file>Datcorr.ico</file>
+    <file>fondo_login.png</file>
+  </qresource>
+</RCC>

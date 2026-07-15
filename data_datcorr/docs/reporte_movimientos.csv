@@ -1,0 +1,80 @@
+fecha,usuario,accion,tabla,detalle
+2026-07-13 13:05:21.131466-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 13:05:21.105753-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 13:03:56.557035-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 13:01:13.508131-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 13:00:59.162486-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 13:00:54.502443-03:00,Musthia0611,LOGIN_FAILED,auth,Usuario incorrecto.
+2026-07-13 13:00:53.895708-03:00,Musthia,LOGIN_FAILED,auth,Password incorrecta.
+2026-07-13 12:53:55.555976-03:00,Musthia,CONSULTA,pediatrico.Datcorr_database,"Consulta PEDIATRICO (pagina 1, 0 registros, total 41589)"
+2026-07-13 12:52:27.905038-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:52:14.502564-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 12:52:14.481516-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 12:52:08.767201-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:46:22.681323-03:00,Musthia,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 1, 0 registros, total 22511)"
+2026-07-13 12:46:18.969258-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:44:02.685760-03:00,Musthia,CONSULTA,pediatrico.Datcorr_database,"Consulta PEDIATRICO (pagina 1, 0 registros, total 41589)"
+2026-07-13 12:43:57.885442-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:40:15.284693-03:00,Musthia,BUSQUEDA,ips.Datcorr_database,Busqueda '2525' en IPS (23 resultados)
+2026-07-13 12:39:45.011598-03:00,Musthia,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 1, 0 registros, total 22511)"
+2026-07-13 12:39:40.551281-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:39:26.567285-03:00,Musthia,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 451, 50 registros, total 22511)"
+2026-07-13 12:39:19.964727-03:00,Musthia,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 1, 50 registros, total 22511)"
+2026-07-13 12:39:12.668382-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:33:32.025400-03:00,Musthia,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 1, 50 registros, total 22511)"
+2026-07-13 12:33:23.055634-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:32:51.400764-03:00,Musthia,CONSULTA,igpj.Datcorr_database,"Consulta IGPJ (pagina 1, 50 registros, total 33511)"
+2026-07-13 12:32:17.903932-03:00,Musthia,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 1, 50 registros, total 22511)"
+2026-07-13 12:32:00.310738-03:00,Musthia,CONSULTA,reportes.inventario,Ejecutó reporte 'inventario' con filtros: {}
+2026-07-13 12:31:39.783359-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:15:41.318879-03:00,Musthia,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 1, 50 registros, total 22511)"
+2026-07-13 12:15:35.744015-03:00,Musthia,BUSQUEDA,ips.Datcorr_database,Busqueda '254' en IPS (222 resultados)
+2026-07-13 12:13:41.910055-03:00,Musthia,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 1, 50 registros, total 22511)"
+2026-07-13 12:13:28.633562-03:00,Musthia,BUSQUEDA,igpj.Datcorr_database,Busqueda '254' en IGPJ (67 resultados)
+2026-07-13 12:13:23.695347-03:00,Musthia,CONSULTA,igpj.Datcorr_database,"Consulta IGPJ (pagina 1, 50 registros, total 33511)"
+2026-07-13 12:13:16.049826-03:00,Musthia,CONSULTA,igpj.Datcorr_database,"Consulta IGPJ (pagina 1, 50 registros, total 33511)"
+2026-07-13 12:11:56.644585-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 12:11:10.548649-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 12:11:10.525324-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 12:10:56.655375-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 11:18:46.172934-03:00,Musthia,BUSQUEDA,igpj.Datcorr_database,Busqueda 'Login exito' en IGPJ (1 resultados)
+2026-07-13 11:18:25.721003-03:00,Musthia,BUSQUEDA,pediatrico.Datcorr_database,Busqueda 'Login exitoso Musthia · Hace 23 min' en PEDIATRICO (0 resultados)
+2026-07-13 11:18:22.024333-03:00,Musthia,BUSQUEDA,pediatrico.Datcorr_database,Busqueda 'Login exitoso Musthia · Hace 23 min' en PEDIATRICO (0 resultados)
+2026-07-13 11:18:07.423114-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 11:18:07.401720-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 11:18:03.504753-03:00,Musthia,BUSQUEDA,igpj.Datcorr_database,Busqueda 'Login exitoso Musthia · Hace 23 min' en IGPJ (0 resultados)
+2026-07-13 11:17:58.344234-03:00,Musthia,BUSQUEDA,igpj.Datcorr_database,Busqueda 'Login exitoso Musthia · Hace 23 min' en IGPJ (0 resultados)
+2026-07-13 11:17:53.709115-03:00,Musthia,BUSQUEDA,igpj.Datcorr_database,Busqueda 'Login exitoso Musthia · Hace 23 min' en IGPJ (0 resultados)
+2026-07-13 11:16:20.922902-03:00,Musthia,BUSQUEDA,igpj.Datcorr_database,Busqueda 'Login exitoso Musthia · Hace 23 min' en IGPJ (0 resultados)
+2026-07-13 11:15:50.819307-03:00,Dana,CREATE,igpj.Datcorr_database,Registro creado en IGPJ
+2026-07-13 11:15:32.542643-03:00,Dana,BUSQUEDA,igpj.Datcorr_database,Busqueda '456' en IGPJ (37 resultados)
+2026-07-13 11:15:17.544626-03:00,Dana,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 11:14:18.556442-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 10:51:17.282606-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 10:51:17.254146-03:00,Musthia,CONSULTA,usuarios,"Listado de usuarios - total=16, page=1, search='', rol=''"
+2026-07-13 10:50:39.000267-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 10:50:31.675828-03:00,Walter,LOGIN_FAILED,auth,Usuario inactivo.
+2026-07-13 10:50:25.139356-03:00,Walter,LOGIN_FAILED,auth,Usuario inactivo.
+2026-07-13 10:49:19.868111-03:00,Dana,CREATE,escribania.Datcorr_database,Registro creado en ESCRIBANIA
+2026-07-13 10:48:26.288756-03:00,Dana,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 10:37:24.799178-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 08:32:56.692591-03:00,Dana,CONSULTA,reportes.inventario,Ejecutó reporte 'inventario' con filtros: {}
+2026-07-13 08:32:00.565618-03:00,Dana,CREATE,ips.Datcorr_database,Registro creado en IPS
+2026-07-13 08:31:20.950494-03:00,Dana,CONSULTA,maternidad.Datcorr_database,"Consulta MATERNIDAD (pagina 1, 50 registros, total 29836)"
+2026-07-13 08:31:05.283073-03:00,Dana,CONSULTA,ips.Datcorr_database,"Consulta IPS (pagina 1, 50 registros, total 22056)"
+2026-07-13 08:25:33.662390-03:00,Dana,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-13 08:25:21.117231-03:00,Walter,LOGIN_FAILED,auth,Usuario inactivo.
+2026-07-10 14:12:43.047925-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 14:10:23.904291-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 13:49:26.579386-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 13:47:46.874281-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 13:47:14.052627-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 13:21:46.275389-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 10:28:44.625348-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 10:16:47.081052-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 10:14:41.260601-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 09:45:59.497058-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 09:41:49.684220-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 09:30:58.618355-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 08:59:56.000688-03:00,Musthia,LOGIN_SUCCESS,auth,Login exitoso
+2026-07-10 08:59:52.858904-03:00,Musthia,LOGIN_FAILED,auth,Password incorrecta.

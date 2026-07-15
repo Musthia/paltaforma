@@ -1,0 +1,3 @@
+CREATE DATABASE simco
+OWNER Musthia
+ENCODING 'UTF8';

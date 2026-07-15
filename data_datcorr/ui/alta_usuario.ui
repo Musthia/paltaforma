@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Dialog</class>
+ <widget class="QDialog" name="Dialog">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>350</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Alta Usuario</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="2" column="4">
+    <widget class="QLabel" name="label_nivel">
+     <property name="text">
+      <string>Nivel:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="6">
+    <widget class="QLineEdit" name="lineEdit_pass_alta">
+     <property name="echoMode">
+      <enum>QLineEdit::EchoMode::Password</enum>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="6">
+    <widget class="QPushButton" name="pushButton_cancelar">
+     <property name="text">
+      <string>Cancelar</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="4">
+    <widget class="QLabel" name="label_activo">
+     <property name="text">
+      <string>Activo:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="0">
+    <widget class="QLabel" name="label_nombre">
+     <property name="text">
+      <string>Nombre:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QPushButton" name="pushButton_guardar">
+     <property name="text">
+      <string>Guardar</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QLabel" name="label_apellido">
+     <property name="text">
+      <string>Apellido:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="6">
+    <widget class="QLineEdit" name="lineEdit_apellido_alta"/>
+   </item>
+   <item row="1" column="4">
+    <widget class="QLabel" name="label_pass">
+     <property name="text">
+      <string>Password:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="QLabel" name="label_usuario">
+     <property name="text">
+      <string>Usuario:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QLineEdit" name="lineEdit_nombre_alta"/>
+   </item>
+   <item row="4" column="0" colspan="7">
+    <widget class="QTableView" name="tableViewlistar_usuarios_altas"/>
+   </item>
+   <item row="1" column="2">
+    <widget class="QLineEdit" name="lineEdit_usuario_alta"/>
+   </item>
+   <item row="2" column="0">
+    <widget class="QLabel" name="label_rol">
+     <property name="text">
+      <string>Rol:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="6">
+    <widget class="QSpinBox" name="spinBox_nivel_alta">
+     <property name="minimum">
+      <number>1</number>
+     </property>
+     <property name="maximum">
+      <number>10</number>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="6">
+    <widget class="QCheckBox" name="checkBox_activo_alta">
+     <property name="text">
+      <string>Usuario Activo</string>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="2">
+    <widget class="QComboBox" name="comboBox_rol_alta"/>
+   </item>
+   <item row="3" column="0">
+    <widget class="QLabel" name="label_email">
+     <property name="text">
+      <string>Email:</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2">
+    <widget class="QLineEdit" name="lineEdit_email_alta"/>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
