@@ -27,10 +27,10 @@ export default function Login() {
 
         try {
             const res = await api.post("/auth/login", {
-                usuario,
+                username: usuario,
                 password
             });
-            setTokens(res.data.token);
+            setTokens(res.data.access_token);
             navigate("/dashboard", { replace: true });
         } catch (err) {
             const mensaje = err.response?.data?.detail
