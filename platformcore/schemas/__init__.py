@@ -1,0 +1,31 @@
+from platformcore.schemas.identity import (
+    LoginRequest,
+    LoginResponse,
+    RefreshRequest,
+    RefreshResponse,
+    LogoutRequest,
+    LogoutResponse,
+    MeResponse,
+    ForgotPasswordRequest,
+    ResetPasswordRequest,
+    ChangePasswordRequest,
+    UserCreateRequest,
+    UserUpdateRequest,
+    UserResponse,
+)
+
+__all__ = [
+    "LoginRequest",
+    "LoginResponse",
+    "RefreshRequest",
+    "RefreshResponse",
+    "LogoutRequest",
+    "LogoutResponse",
+    "MeResponse",
+    "ForgotPasswordRequest",
+    "ResetPasswordRequest",
+    "ChangePasswordRequest",
+    "UserCreateRequest",
+    "UserUpdateRequest",
+    "UserResponse",
+]

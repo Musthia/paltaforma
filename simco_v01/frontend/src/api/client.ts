@@ -6,7 +6,7 @@ import { getAccessToken, getRefreshToken, setTokens, clearTokens } from "../auth
 //const API_BASE = import.meta.env.VITE_API_URL || window.location.origin;
 
 export const api = axios.create({
-  baseURL:  "/api",
+  baseURL:  "",
 });
 
 let isRefreshing = false;

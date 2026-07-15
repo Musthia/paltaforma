@@ -1,34 +1,25 @@
-from sqlalchemy.orm import Session
-from app.models.user import User
-from app.core.security import verify_password
-from app.core.jwt import create_access_token, create_refresh_token
+from platformcore.services.identity import IdentityService
 
 
-def authenticate_user(db: Session, username: str, password: str):
-    user = db.query(User).filter(User.username == username).first()
-
-    if not user:
-        return None
-
-    if not verify_password(password, user.hashed_password):
-        return None
-
-    return user
+def authenticate_user(db, username: str, password: str):
+    result = IdentityService.login(db, username, password)
+    if result["success"]:
+        return result["user"]
+    return None
 
 
-def generate_tokens(user: User):
+def generate_tokens(user):
+    from platformcore.jwt import create_access_token, create_refresh_token
     payload = {
-        "sub": str(user.id),
-        "id": user.id,
+        "sub": user.username,
+        "user_id": user.id,
         "role": user.role,
         "username": user.username,
-        "full_name": user.full_name,
+        "full_name": getattr(user, "full_name", ""),
     }
-
-    access_token = create_access_token(payload)
-    refresh_token = create_refresh_token(payload)
-
+    access = create_access_token(payload)
+    refresh = create_refresh_token(payload)
     return {
-        "access_token": access_token,
-        "refresh_token": refresh_token
+        "access_token": access["access_token"],
+        "refresh_token": refresh["refresh_token"],
     }

@@ -1,70 +1,57 @@
-from sqlalchemy.orm import Session
-from app.models.user import User
-from app.core.security import hash_password
-from app.core.audit import audit_action
+from platformcore.services.security import UserService as PlatformUserService
+from platformcore.services.audit import AuditService
 
 MASTER_USERNAME = "Musthia"
 
 
-def list_users(db: Session):
-    return db.query(User).filter(User.username != MASTER_USERNAME).all()
+def list_users(db):
+    result = PlatformUserService.list_users(db, include_inactive=True)
+    users = [u for u in result["users"] if u.username != MASTER_USERNAME]
+    return users
 
 
-def get_user(db: Session, user_id: int):
-    return db.query(User).filter(User.id == user_id).first()
+def get_user(db, user_id: int):
+    return PlatformUserService.get_user(db, user_id)
 
 
-def create_user(db: Session, data, current_user_id: int):
-    user = User(
-        username=data.username,
-        full_name=data.full_name,
-        hashed_password=hash_password(data.password),
-        role=data.role,
-        is_active=True,
+def create_user(db, data, current_user_id: int):
+    user = PlatformUserService.create_user(db, data)
+    AuditService.record(
+        db=db, user_id=current_user_id, action="CREAR_USUARIO",
+        entity="user", entity_id=user.id,
+        detail=f"Usuario {user.username} creado con rol {user.role}",
+        module="simco",
     )
-    db.add(user)
-    db.flush()
-
-    audit_action(db, current_user_id, "CREAR_USUARIO", "user", user.id,
-                 codigo=data.username, detail=f"Usuario {data.username} creado con rol {data.role}")
-    db.commit()
-    db.refresh(user)
     return user
 
 
-def update_user(db: Session, user_id: int, data, current_user_id: int):
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        return None
+def update_user(db, user_id: int, data, current_user_id: int):
+    user = PlatformUserService.get_user(db, user_id)
     if user.username == MASTER_USERNAME:
         return None
-
-    if data.full_name is not None:
-        user.full_name = data.full_name
-    if data.role is not None:
-        user.role = data.role
-    if data.is_active is not None:
-        user.is_active = data.is_active
-    if data.password:
-        user.hashed_password = hash_password(data.password)
-
-    db.flush()
-    audit_action(db, current_user_id, "ACTUALIZAR_USUARIO", "user", user.id,
-                 codigo=user.username, detail=f"Usuario {user.username} actualizado")
-    db.commit()
-    db.refresh(user)
+    user = PlatformUserService.update_user(db, user_id, data)
+    AuditService.record(
+        db=db, user_id=current_user_id, action="ACTUALIZAR_USUARIO",
+        entity="user", entity_id=user.id,
+        detail=f"Usuario {user.username} actualizado",
+        module="simco",
+    )
     return user
 
 
-def delete_user(db: Session, user_id: int, current_user_id: int):
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
+def delete_user(db, user_id: int, current_user_id: int):
+    from platformcore.exceptions import NotFoundError
+    try:
+        user = PlatformUserService.get_user(db, user_id)
+        if user.username == MASTER_USERNAME:
+            return False
+        PlatformUserService.deactivate_user(db, user_id)
+        AuditService.record(
+            db=db, user_id=current_user_id, action="ELIMINAR_USUARIO",
+            entity="user", entity_id=user_id,
+            detail=f"Usuario {user.username} eliminado",
+            module="simco",
+        )
+        return True
+    except NotFoundError:
         return False
-    if user.username == MASTER_USERNAME:
-        return False
-
-    audit_action(db, current_user_id, "ELIMINAR_USUARIO", "user", user.id,
-                 codigo=user.username, detail=f"Usuario {user.username} eliminado")
-    db.delete(user)
-    db.commit()
-    return True

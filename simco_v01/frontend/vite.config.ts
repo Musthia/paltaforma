@@ -6,6 +6,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
 
   return {
+    base: '/simco/',
     plugins: [react()],
     define: {
       // Expone la URL base de la API y del WebSocket al frontend

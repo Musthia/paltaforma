@@ -1,13 +1,15 @@
-from app.services.audit_service import registrar_auditoria
+from platformcore.services.audit import AuditService
+from platformcore.database import SessionLocal
 
 
 def audit_action(db, user_id, action, entity, entity_id, codigo="", detail=""):
-    registrar_auditoria(
+    AuditService.record(
         db=db,
-        usuario_id=user_id,
-        accion=action,
-        codigo=codigo,
-        entidad=entity,
-        entidad_id=entity_id,
-        detalle=detail
+        user_id=user_id,
+        username=str(user_id),
+        action=action,
+        entity=entity,
+        entity_id=entity_id,
+        detail=detail or codigo,
+        module="simco",
     )
