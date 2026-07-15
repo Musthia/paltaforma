@@ -1,74 +1,31 @@
 from sqlalchemy.orm import Session
 
-from database.modelos_auditoria import (
-    Auditoria
-)
+from platformcore.services.audit import AuditService
 
-import logging
-
-logger = logging.getLogger(
-    "datcorr"
-)
-
-# -----------------------------------
-# REGISTRAR AUDITORIA
-# -----------------------------------
 
 def registrar_auditoria(
-
     db: Session,
-
-    usuario: str,
-
-    accion: str,
-
-    tabla: str,
-
+    usuario: str = "",
+    accion: str = "",
+    tabla: str = "",
     registro_id: int = None,
-
     endpoint: str = "",
-
     ip: str = "",
-
     detalle: str = "",
-
     ip_address=None,
-
     user_agent=None,
-
-    token_jti=None
+    token_jti=None,
 ):
-
-    auditoria = Auditoria(
-
-        usuario=usuario,
-
-        accion=accion,
-
-        tabla=tabla,
-
-        registro_id=registro_id,
-
+    AuditService.record(
+        db=db,
+        username=usuario,
+        action=accion,
+        entity=tabla,
+        entity_id=registro_id,
         endpoint=endpoint,
-
-        ip=ip,
-
-        detalle=detalle,
-
-        ip_address=ip_address,
-
+        detail=detalle,
+        ip_address=ip_address or ip,
         user_agent=user_agent,
-
-        token_jti=token_jti
-    )
-
-    db.add(auditoria)
-
-    db.commit()
-
-    logger.info(
-        f"AUDITORIA: "
-        f"{accion} "
-        f"{tabla} "
-        f"ID={registro_id}"
+        token_jti=token_jti,
+        module="datcorr",
     )

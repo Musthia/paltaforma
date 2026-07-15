@@ -45,6 +45,13 @@ export default function Dashboard() {
                     </p>
                 </div>
                 <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                    <button
+                        onClick={() => window.open("/simco", "_blank")}
+                        style={simcoBtnStyles}
+                        title="Abrir SIMCO en nueva pestaña"
+                    >
+                        SIMCO
+                    </button>
                     <div style={welcomeStyles.badge}>
                         <span style={welcomeStyles.badgeText}>v1.0</span>
                     </div>
@@ -243,6 +250,18 @@ const sectionTitle = {
     margin: 0,
     marginBottom: 12,
     color: "var(--text-primary)",
+};
+
+const simcoBtnStyles = {
+    padding: "8px 16px",
+    background: "#0284c7",
+    color: "#fff",
+    border: "none",
+    borderRadius: 8,
+    fontSize: 13,
+    fontWeight: 600,
+    cursor: "pointer",
+    textDecoration: "none",
 };
 
 const logoutBtnStyles = {

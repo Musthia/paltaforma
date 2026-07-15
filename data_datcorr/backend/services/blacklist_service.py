@@ -1,82 +1,36 @@
 from sqlalchemy.orm import Session
 
-from database.modelos_blacklist import (
-    TokenBlacklist
-)
+from platformcore.models.identity import PlatformTokenBlacklist
+from platformcore.database import SessionLocal
 
-# -----------------------------------
-# AGREGAR TOKEN A BLACKLIST
-# -----------------------------------
 
 def blacklist_token(
-
     db: Session,
-
     jti: str,
-
     usuario: str,
-
-    motivo: str = "logout"
+    motivo: str = "logout",
 ):
-
-    existe = (
-
-        db.query(TokenBlacklist)
-
-        .filter(
-            TokenBlacklist.jti == jti
-        )
-
-        .first()
-    )
-
-    # -------------------------
-    # EVITAR DUPLICADOS
-    # -------------------------
-
+    existe = db.query(PlatformTokenBlacklist).filter(
+        PlatformTokenBlacklist.jti == jti
+    ).first()
     if existe:
-
         return
-
-    token = TokenBlacklist(
-
+    token = PlatformTokenBlacklist(
         jti=jti,
-
-        usuario=usuario,
-
+        username=usuario,
         motivo=motivo,
-
-        activo=True
+        is_active=True,
     )
-
     db.add(token)
-
     db.commit()
 
-# -----------------------------------
-# VERIFICAR TOKEN BLACKLIST
-# -----------------------------------
 
 def token_esta_revocado(
-
     db: Session,
-
-    jti: str
+    jti: str,
 ):
-
-    token = (
-
-        db.query(TokenBlacklist)
-
-        .filter(
-            TokenBlacklist.jti == jti
-        )
-
-        .filter(
-            TokenBlacklist.activo == True
-        )
-
-        .first()
-    )
-
+    token = db.query(PlatformTokenBlacklist).filter(
+        PlatformTokenBlacklist.jti == jti,
+        PlatformTokenBlacklist.is_active == True,
+    ).first()
     return token is not None
