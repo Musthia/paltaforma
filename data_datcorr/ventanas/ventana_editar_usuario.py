@@ -115,10 +115,10 @@ class VentanaEditarUsuario(QDialog):
         )
 
         self.ui.comboBox_rol.addItems([
-            "Administrador",
-            "Supervisor",
-            "Operador",
-            "Consulta"
+            "admin",
+            "oficina",
+            "deposito",
+            "consulta"
         ])
 
     def guardar_usuario(self):

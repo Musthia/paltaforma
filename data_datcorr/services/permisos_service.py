@@ -4,9 +4,9 @@
 
 MODULO_CONSULTAS = 1
 
-MODULO_CARGAS = 3
+MODULO_CARGAS = 4
 
-MODULO_REPORTES = 5
+MODULO_REPORTES = 3
 
 MODULO_USUARIOS = 10
 
@@ -62,15 +62,15 @@ def obtener_descripcion_nivel(
 ):
 
     if nivel >= 10:
-        return "Administrador"
+        return "admin"
 
     elif nivel >= 5:
-        return "Supervisor"
+        return "deposito"
 
     elif nivel >= 3:
-        return "Operador"
+        return "oficina"
 
-    return "Consulta"
+    return "consulta"
 
 from core.session_manager import SessionManager
 

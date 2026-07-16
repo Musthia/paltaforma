@@ -164,6 +164,13 @@ class InicioSesion(QMainWindow):
         
         # initialize_postgres()   # Engine global desactivado — todo vía API
 
+        if rol == "consulta":
+            import webbrowser
+            webbrowser.open("http://localhost:8000/simco/")
+            QMessageBox.information(self, "Acceso",
+                "Tu rol solo tiene acceso a SIMCO.\nSe abrirá en el navegador.")
+            return
+
         self.hide()
         self.ventana_principal = iniciar_aplicacion_principal()
 

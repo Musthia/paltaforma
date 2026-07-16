@@ -9,6 +9,8 @@ _FIELD_MAP = {
     "is_superuser": "es_superusuario",
 }
 
+_FIELD_MAP_REVERSE = {v: k for k, v in _FIELD_MAP.items()}
+
 def _map_user(user: dict) -> dict:
     mapped = {}
     for eng, spa in _FIELD_MAP.items():
@@ -48,11 +50,24 @@ class ApiUsuariosClient:
             return _map_user(resultado)
         return resultado
 
+    def _map_outgoing(self, data: dict) -> dict:
+        mapped = {}
+        nombre = data.get("nombre", "")
+        apellido = data.get("apellido", "")
+        if nombre or apellido:
+            mapped["full_name"] = f"{nombre} {apellido}".strip()
+        for k, v in data.items():
+            if k in ("nombre", "apellido"):
+                continue
+            eng = _FIELD_MAP_REVERSE.get(k, k)
+            mapped[eng] = v
+        return mapped
+
     def crear_usuario(self, data: dict):
-        return self._client.post("/users/", data)
+        return self._client.post("/users/", self._map_outgoing(data))
 
     def actualizar_usuario(self, usuario_id: int, data: dict):
-        return self._client.put(f"/users/{usuario_id}", data)
+        return self._client.put(f"/users/{usuario_id}", self._map_outgoing(data))
 
     def desactivar_usuario(self, usuario_id: int):
         return self._client.delete(f"/users/{usuario_id}")

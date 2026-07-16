@@ -59,10 +59,10 @@ class VentanaAltaUsuario(QDialog):
         )
 
         self.ui.comboBox_rol_alta.addItems([
-            "Administrador",
-            "Supervisor",
-            "Operador",
-            "Consulta"
+            "admin",
+            "oficina",
+            "deposito",
+            "consulta"
         ])
 
         self.ui.checkBox_activo_alta.setChecked(

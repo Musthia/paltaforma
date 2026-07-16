@@ -25,7 +25,7 @@ export const usePermissions = () => {
     const isAdmin = isSuper || nivel >= 10;
 
     const role = (user.role || "").toLowerCase();
-    const allowedSimcoRoles = ["administrador", "supervisor", "operador"];
+    const allowedSimcoRoles = ["admin", "oficina", "deposito"];
     const canAccessSimco = allowedSimcoRoles.includes(role);
 
     return {

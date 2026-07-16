@@ -32,7 +32,8 @@ export default function Login() {
             });
             const role = (res.data.user?.role || "").toLowerCase();
             if (role === "consulta") {
-                window.location.href = "http://localhost:8000/simco/";
+                const token = res.data.access_token;
+                window.location.href = "http://localhost:8000/simco/?token=" + encodeURIComponent(token);
             } else {
                 setTokens(res.data.access_token);
                 navigate("/dashboard", { replace: true });

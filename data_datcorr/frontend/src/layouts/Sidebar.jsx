@@ -11,6 +11,7 @@ export default function Sidebar() {
     const [simcoOpen, setSimcoOpen] = useState(false);
 
     const user = useAuthStore((s) => s.user);
+    const accessToken = useAuthStore((s) => s.accessToken);
     const logout = useAuthStore((s) => s.logout);
     const perms = usePermissions();
 
@@ -23,9 +24,11 @@ export default function Sidebar() {
         ...(perms.canViewReportes ? [{ label: "Reportes", path: "/reportes", external: false }] : []),
     ];
 
-    const simcoItems = [
-        { label: "SIMCO", path: "http://localhost:8000/simco/", external: true },
-    ];
+    const openSimco = () => {
+        const params = new URLSearchParams();
+        if (accessToken) params.set("token", accessToken);
+        window.open("http://localhost:8000/simco/?" + params.toString(), "_blank");
+    };
 
     const handleNav = (item) => {
         if (item.external) {
@@ -86,45 +89,21 @@ export default function Sidebar() {
                 ))}
 
                 {perms.canAccessSimco && (
-                    <>
-                        <div
-                            onClick={() => setSimcoOpen(!simcoOpen)}
-                            style={{
-                                padding: "10px 12px",
-                                cursor: "pointer",
-                                borderRadius: "6px",
-                                marginBottom: "2px",
-                                marginTop: "8px",
-                                fontSize: 14,
-                                background: "#0284c7",
-                                transition: "background 0.15s",
-                                display: "flex",
-                                justifyContent: "space-between",
-                                alignItems: "center",
-                            }}
-                        >
-                            <span>SIMCO</span>
-                            <span style={{ fontSize: 12 }}>{simcoOpen ? "▲" : "▼"}</span>
-                        </div>
-
-                        {simcoOpen && simcoItems.map(item => (
-                            <div
-                                key={item.path}
-                                onClick={() => handleNav(item)}
-                                style={{
-                                    padding: "8px 12px 8px 24px",
-                                    cursor: "pointer",
-                                    borderRadius: "6px",
-                                    marginBottom: "2px",
-                                    fontSize: 13,
-                                    color: "#94a3b8",
-                                    transition: "background 0.15s",
-                                }}
-                            >
-                                {item.label}
-                            </div>
-                        ))}
-                    </>
+                    <div
+                        onClick={openSimco}
+                        style={{
+                            padding: "10px 12px",
+                            cursor: "pointer",
+                            borderRadius: "6px",
+                            marginBottom: "2px",
+                            marginTop: "8px",
+                            fontSize: 14,
+                            background: "#0284c7",
+                            transition: "background 0.15s",
+                        }}
+                    >
+                        <span>SIMCO</span>
+                    </div>
                 )}
             </div>
 
