@@ -1,8 +1,6 @@
 from datetime import datetime
 import logging
 
-from services.usuarios_permisos_service import usuario_tiene_permiso
-
 from utils.user_helpers import get_usuario_attr
 
 from core.api_client import ApiClient
@@ -156,10 +154,7 @@ class SessionManager:
         if codigo_permiso in cls._permisos:
             return True
 
-        return usuario_tiene_permiso(
-            cls._usuario_actual.get("id"),
-            codigo_permiso
-        )
+        return False
             
     @classmethod
     def es_superusuario(cls):

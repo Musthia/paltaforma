@@ -24,11 +24,6 @@ from app.api.routes.messages import router as messages_router
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    try:
-        from app.db.seed import create_admin
-        create_admin()
-    except Exception as e:
-        print(f"[SIMCO] Seed postergado: {e}")
     start_poller()
     yield
 

@@ -237,3 +237,33 @@ class PermissionService:
             )
             .first()
         ) is not None
+
+    @staticmethod
+    def assign_permission(db: Session, user_id: int, permission_code: str) -> dict:
+        permiso = db.query(PlatformPermission).filter(PlatformPermission.code == permission_code).first()
+        if not permiso:
+            return {"success": False, "mensaje": "Permiso inexistente."}
+        existe = db.query(PlatformUserPermission).filter(
+            PlatformUserPermission.user_id == user_id,
+            PlatformUserPermission.permission_id == permiso.id,
+        ).first()
+        if existe:
+            return {"success": False, "mensaje": "Permiso ya asignado."}
+        db.add(PlatformUserPermission(user_id=user_id, permission_id=permiso.id))
+        db.commit()
+        return {"success": True, "mensaje": "Permiso asignado."}
+
+    @staticmethod
+    def remove_permission(db: Session, user_id: int, permission_code: str) -> dict:
+        permiso = db.query(PlatformPermission).filter(PlatformPermission.code == permission_code).first()
+        if not permiso:
+            return {"success": False, "mensaje": "Permiso inexistente."}
+        relacion = db.query(PlatformUserPermission).filter(
+            PlatformUserPermission.user_id == user_id,
+            PlatformUserPermission.permission_id == permiso.id,
+        ).first()
+        if not relacion:
+            return {"success": False, "mensaje": "El usuario no posee ese permiso."}
+        db.delete(relacion)
+        db.commit()
+        return {"success": True, "mensaje": "Permiso removido."}

@@ -72,34 +72,17 @@ def obtener_descripcion_nivel(
 
     return "Consulta"
 
-from database.conexion import SessionLocal
-
-from database.modelos import Permiso
+from core.session_manager import SessionManager
 
 # -----------------------------------
-# LISTAR PERMISOS
+# LISTAR PERMISOS (vía API)
 # -----------------------------------
 
 def listar_permisos():
-
-    db = SessionLocal()
-
-    try:
-
-        permisos = (
-            db.query(Permiso)
-            .order_by(Permiso.codigo)
-            .all()
-        )
-
-        return permisos
-
-    except Exception:
-
-        db.rollback()
-
-        raise
-
-    finally:
-
-        db.close()
+    client = SessionManager.get_api_client()
+    if not client:
+        return []
+    resultado = client.get("/permissions/")
+    if resultado and isinstance(resultado, list):
+        return resultado
+    return []

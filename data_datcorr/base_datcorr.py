@@ -15,7 +15,7 @@ from ventana_principal import VentanaPrincipal
 from core.session_manager import SessionManager
 from core.api_client import ApiClient
 
-from db.registry import initialize_postgres
+# from db.registry import initialize_postgres
 
 
 # -----------------------------------
@@ -162,7 +162,7 @@ class InicioSesion(QMainWindow):
         # ABRIR SISTEMA
         # -----------------------------------
         
-        initialize_postgres()   # <-- Inicializa el engine global
+        # initialize_postgres()   # Engine global desactivado — todo vía API
 
         self.hide()
         self.ventana_principal = iniciar_aplicacion_principal()
