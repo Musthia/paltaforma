@@ -40,7 +40,7 @@ class ApiClient:
             return False
         try:
             req = urllib.request.Request(
-                self.base_url + "/usuarios/refresh",
+                self.base_url + "/auth/refresh",
                 data=json.dumps({"refresh_token": self.refresh_token}).encode("utf-8"),
                 headers={"Content-Type": "application/json"},
                 method="POST"
@@ -135,6 +135,10 @@ class ApiClient:
             detail = data.get("detail") if isinstance(data, dict) else None
             if detail is None:
                 detail = data if isinstance(data, str) else f"HTTP {status}"
+            elif isinstance(detail, list):
+                detail = "; ".join(
+                    d.get("msg", str(d)) for d in detail if isinstance(d, dict)
+                ) or str(detail)
             data = {
                 "success": False,
                 "mensaje": detail,

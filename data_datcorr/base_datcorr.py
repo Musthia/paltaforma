@@ -82,7 +82,7 @@ class InicioSesion(QMainWindow):
         # -----------------------------------
     
         resultado = self.api.post("/auth/login", {
-            "usuario": usuario_input,
+            "username": usuario_input,
             "password": password_input
         })
     
@@ -104,21 +104,21 @@ class InicioSesion(QMainWindow):
         # -----------------------------------
         # USUARIO API (SIEMPRE DICT)
         # -----------------------------------
-    
-        usuario_api = resultado.get("usuario", {})
-    
+
+        usuario_api = resultado.get("user", {})
+
         # -----------------------------------
         # GUARDAR SESIÓN
         # -----------------------------------
-    
+
         SessionManager.login({
             "id": usuario_api.get("id"),
-            "usuario": usuario_api.get("usuario"),
-            "nombre": usuario_api.get("nombre"),
-            "apellido": usuario_api.get("apellido"),
-            "rol": usuario_api.get("rol"),
+            "usuario": usuario_api.get("username"),
+            "nombre": usuario_api.get("full_name", ""),
+            "apellido": "",
+            "rol": usuario_api.get("role"),
             "nivel_seguridad": usuario_api.get("nivel_seguridad"),
-            "es_superusuario": usuario_api.get("es_superusuario", False)
+            "es_superusuario": usuario_api.get("is_superuser", False)
         })
     
         # -----------------------------------
@@ -126,7 +126,7 @@ class InicioSesion(QMainWindow):
         # -----------------------------------
 
         self.api.set_tokens(
-            resultado.get("token"),
+            resultado.get("access_token"),
             resultado.get("refresh_token")
         )
 
@@ -146,8 +146,8 @@ class InicioSesion(QMainWindow):
         # UI INFO
         # -----------------------------------
     
-        nombre_usuario = f"{usuario_api.get('nombre','')} {usuario_api.get('apellido','')}"
-        rol = usuario_api.get("rol", "")
+        nombre_usuario = usuario_api.get("full_name", usuario_api.get("nombre", ""))
+        rol = usuario_api.get("role", "")
         nivel = usuario_api.get("nivel_seguridad", 0)
     
         descripcion_nivel = obtener_descripcion_nivel(nivel)

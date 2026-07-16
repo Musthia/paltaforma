@@ -30,8 +30,13 @@ export default function Login() {
                 username: usuario,
                 password
             });
-            setTokens(res.data.access_token);
-            navigate("/dashboard", { replace: true });
+            const role = (res.data.user?.role || "").toLowerCase();
+            if (role === "consulta") {
+                window.location.href = "http://localhost:8000/simco/";
+            } else {
+                setTokens(res.data.access_token);
+                navigate("/dashboard", { replace: true });
+            }
         } catch (err) {
             const mensaje = err.response?.data?.detail
                 || err.response?.data?.mensaje

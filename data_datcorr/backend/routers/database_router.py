@@ -69,7 +69,7 @@ def _nombre_usuario(request: Request) -> str:
 
 
 def _es_admin_escritura(usuario) -> bool:
-    return usuario.es_superusuario or usuario.nivel_seguridad >= 5
+    return usuario.is_superuser or usuario.nivel_seguridad >= 5
 
 
 @router.get("/", response_model=BasesResponse)

@@ -2,24 +2,38 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuthStore } from "../auth/authStore";
 import { usePermissions } from "../auth/usePermissions";
 import api from "../api/axiosClient";
+import { useState } from "react";
 
 export default function Sidebar() {
 
     const navigate = useNavigate();
     const location = useLocation();
+    const [simcoOpen, setSimcoOpen] = useState(false);
 
     const user = useAuthStore((s) => s.user);
     const logout = useAuthStore((s) => s.logout);
     const perms = usePermissions();
 
     const menu = [
-        { label: "Dashboard", path: "/dashboard" },
-        ...(perms.canViewUsers ? [{ label: "Usuarios", path: "/usuarios" }] : []),
-        { label: "Consultar Bases", path: "/database" },
-        { label: "Carga de Datos", path: "/carga-datos" },
-        ...(perms.canViewAuditoria ? [{ label: "Auditoria", path: "/auditoria" }] : []),
-        ...(perms.canViewReportes ? [{ label: "Reportes", path: "/reportes" }] : []),
+        { label: "Dashboard", path: "/dashboard", external: false },
+        ...(perms.canViewUsers ? [{ label: "Usuarios", path: "/usuarios", external: false }] : []),
+        { label: "Consultar Bases", path: "/database", external: false },
+        { label: "Carga de Datos", path: "/carga-datos", external: false },
+        ...(perms.canViewAuditoria ? [{ label: "Auditoria DATCORR", path: "/auditoria", external: false }] : []),
+        ...(perms.canViewReportes ? [{ label: "Reportes", path: "/reportes", external: false }] : []),
     ];
+
+    const simcoItems = [
+        { label: "SIMCO", path: "http://localhost:8000/simco/", external: true },
+    ];
+
+    const handleNav = (item) => {
+        if (item.external) {
+            window.open(item.path, "_blank");
+        } else {
+            navigate(item.path);
+        }
+    };
 
     const handleLogout = async () => {
         try {
@@ -56,7 +70,7 @@ export default function Sidebar() {
                 {menu.map(item => (
                     <div
                         key={item.path}
-                        onClick={() => navigate(item.path)}
+                        onClick={() => handleNav(item)}
                         style={{
                             padding: "10px 12px",
                             cursor: "pointer",
@@ -70,6 +84,48 @@ export default function Sidebar() {
                         {item.label}
                     </div>
                 ))}
+
+                {perms.canAccessSimco && (
+                    <>
+                        <div
+                            onClick={() => setSimcoOpen(!simcoOpen)}
+                            style={{
+                                padding: "10px 12px",
+                                cursor: "pointer",
+                                borderRadius: "6px",
+                                marginBottom: "2px",
+                                marginTop: "8px",
+                                fontSize: 14,
+                                background: "#0284c7",
+                                transition: "background 0.15s",
+                                display: "flex",
+                                justifyContent: "space-between",
+                                alignItems: "center",
+                            }}
+                        >
+                            <span>SIMCO</span>
+                            <span style={{ fontSize: 12 }}>{simcoOpen ? "▲" : "▼"}</span>
+                        </div>
+
+                        {simcoOpen && simcoItems.map(item => (
+                            <div
+                                key={item.path}
+                                onClick={() => handleNav(item)}
+                                style={{
+                                    padding: "8px 12px 8px 24px",
+                                    cursor: "pointer",
+                                    borderRadius: "6px",
+                                    marginBottom: "2px",
+                                    fontSize: 13,
+                                    color: "#94a3b8",
+                                    transition: "background 0.15s",
+                                }}
+                            >
+                                {item.label}
+                            </div>
+                        ))}
+                    </>
+                )}
             </div>
 
             <div style={{

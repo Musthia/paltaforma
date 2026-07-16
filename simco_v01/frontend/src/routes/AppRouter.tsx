@@ -6,7 +6,7 @@ import { TabProvider } from "../tabs/TabContext";
 
 export default function AppRouter() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/simco">
             <Routes>
                 <Route path="/" element={<Login />} />
 

@@ -10,6 +10,7 @@ export const usePermissions = () => {
             canViewUsers: false,
             canViewAuditoria: false,
             canViewReportes: false,
+            canAccessSimco: false,
             canCreateUser: false,
             canEditUser: false,
             canDeleteUser: false,
@@ -23,11 +24,16 @@ export const usePermissions = () => {
 
     const isAdmin = isSuper || nivel >= 10;
 
+    const role = (user.role || "").toLowerCase();
+    const allowedSimcoRoles = ["administrador", "supervisor", "operador"];
+    const canAccessSimco = allowedSimcoRoles.includes(role);
+
     return {
 
         canViewUsers: isAdmin,
         canViewAuditoria: isAdmin,
         canViewReportes: true,
+        canAccessSimco,
 
         canCreateUser: isAdmin,
         canEditUser: isAdmin,

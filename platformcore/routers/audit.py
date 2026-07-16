@@ -17,9 +17,10 @@ def list_audit_logs(
     entity: str = None,
     username: str = None,
     db: Session = Depends(get_db),
-    current_user: PlatformUser = Depends(require_role("admin")),
+    current_user: PlatformUser = Depends(require_role("admin", "Administrador")),
 ):
     return AuditService.list_logs(
         db=db, page=page, limit=limit,
         action=action, entity=entity, username=username,
     )
+

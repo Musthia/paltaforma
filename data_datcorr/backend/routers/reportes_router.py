@@ -27,7 +27,7 @@ TIPOS_EXPORTABLES = {"kpis", "actividad-usuarios", "evolucion-diaria", "tipos-op
 
 
 def _es_admin(user) -> bool:
-    return user.es_superusuario or user.nivel_seguridad >= 10
+    return user.is_superuser or user.nivel_seguridad >= 10
 
 
 @router.get("/consultas")

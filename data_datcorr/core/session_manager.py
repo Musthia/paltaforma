@@ -48,14 +48,14 @@ class SessionManager:
                 return False
             cls._usuario_actual = {
                 "id": data.get("id"),
-                "usuario": data.get("usuario"),
-                "nombre": data.get("nombre"),
-                "apellido": data.get("apellido"),
-                "rol": data.get("rol"),
+                "usuario": data.get("username"),
+                "nombre": data.get("full_name", ""),
+                "apellido": "",
+                "rol": data.get("role"),
                 "nivel_seguridad": data.get("nivel_seguridad", 0),
-                "es_superusuario": data.get("es_superusuario", False),
+                "es_superusuario": data.get("is_superuser", False),
             }
-            cls._permisos = data.get("permisos", [])
+            cls._permisos = data.get("permissions", [])
             cls._sesion_activa = True
             return True
         except Exception:

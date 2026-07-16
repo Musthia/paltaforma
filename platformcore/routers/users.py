@@ -24,7 +24,7 @@ def list_users(
     sort_by: str = "id",
     order: str = "asc",
     db: Session = Depends(get_db),
-    current_user: PlatformUser = Depends(require_role("admin")),
+    current_user: PlatformUser = Depends(require_role("admin", "Administrador")),
 ):
     result = UserService.list_users(
         db=db, page=page, limit=limit, search=search,
@@ -50,7 +50,7 @@ def get_user(
 def create_user(
     data: UserCreateRequest,
     db: Session = Depends(get_db),
-    current_user: PlatformUser = Depends(require_role("admin")),
+    current_user: PlatformUser = Depends(require_role("admin", "Administrador")),
 ):
     try:
         user = UserService.create_user(db, data)
@@ -71,7 +71,7 @@ def update_user(
     user_id: int,
     data: UserUpdateRequest,
     db: Session = Depends(get_db),
-    current_user: PlatformUser = Depends(require_role("admin")),
+    current_user: PlatformUser = Depends(require_role("admin", "Administrador")),
 ):
     try:
         user = UserService.update_user(db, user_id, data)
@@ -91,7 +91,7 @@ def update_user(
 def deactivate_user(
     user_id: int,
     db: Session = Depends(get_db),
-    current_user: PlatformUser = Depends(require_role("admin")),
+    current_user: PlatformUser = Depends(require_role("admin", "Administrador")),
 ):
     try:
         user = UserService.deactivate_user(db, user_id)
@@ -111,7 +111,7 @@ def deactivate_user(
 def reactivate_user(
     user_id: int,
     db: Session = Depends(get_db),
-    current_user: PlatformUser = Depends(require_role("admin")),
+    current_user: PlatformUser = Depends(require_role("admin", "Administrador")),
 ):
     try:
         user = UserService.reactivate_user(db, user_id)

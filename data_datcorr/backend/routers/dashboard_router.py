@@ -67,7 +67,7 @@ def listar_auditoria(
     limit: int = Query(50, ge=1, le=200),
     usuario_actual=Depends(obtener_usuario_actual),
 ):
-    if not usuario_actual.es_superusuario and usuario_actual.nivel_seguridad < 10:
+    if not usuario_actual.is_superuser and usuario_actual.nivel_seguridad < 10:
         raise HTTPException(status_code=403, detail="Sin permisos para ver auditoria.")
     offset = (page - 1) * limit
     with postgres_engine.connect() as conn:

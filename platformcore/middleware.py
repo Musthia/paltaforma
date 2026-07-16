@@ -28,6 +28,10 @@ class JWTMiddleware(BaseHTTPMiddleware):
     }
 
     async def dispatch(self, request: Request, call_next):
+        # WebSocket connections bypass middleware
+        if request.scope["type"] == "websocket":
+            return await call_next(request)
+
         path = request.url.path.rstrip("/")
 
         if request.method == "OPTIONS":
