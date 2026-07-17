@@ -18,6 +18,12 @@ platformcore/models/__init__.py
 platformcore/models/audit.py
 platformcore/models/identity.py
 platformcore/models/security.py
+platformcore/routers/__init__.py
+platformcore/routers/audit.py
+platformcore/routers/auth.py
+platformcore/routers/permissions.py
+platformcore/routers/roles.py
+platformcore/routers/users.py
 platformcore/schemas/__init__.py
 platformcore/schemas/identity.py
 platformcore/services/__init__.py

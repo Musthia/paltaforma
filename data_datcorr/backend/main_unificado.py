@@ -13,7 +13,7 @@ SIMCO_BACKEND = os.path.join(os.path.dirname(__file__), "..", "..", "simco_v01",
 if SIMCO_BACKEND not in sys.path:
     sys.path.insert(0, SIMCO_BACKEND)
 
-from fastapi import FastAPI, Request
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.staticfiles import StaticFiles
@@ -135,9 +135,14 @@ if os.path.isdir(frontend_dist):
     assets_dir = os.path.join(frontend_dist, "assets")
     if os.path.isdir(assets_dir):
         app.mount("/simco/assets", StaticFiles(directory=assets_dir), name="simco_assets")
+        app.mount("/assets", StaticFiles(directory=assets_dir), name="simco_assets_root")
+
+    @app.get("/simco")
+    async def serve_simco_root():
+        return FileResponse(os.path.join(frontend_dist, "index.html"))
 
     @app.get("/simco/{full_path:path}")
-    async def serve_simco_frontend(request: Request, full_path: str):
+    async def serve_simco_frontend(full_path: str):
         file_path = os.path.join(frontend_dist, full_path)
         if os.path.isfile(file_path):
             return FileResponse(file_path)
@@ -146,6 +151,14 @@ if os.path.isdir(frontend_dist):
         resp.headers["Pragma"] = "no-cache"
         resp.headers["Expires"] = "0"
         return resp
+
+    @app.get("/favicon.svg")
+    async def serve_favicon():
+        return FileResponse(os.path.join(frontend_dist, "favicon.svg"))
+
+    @app.get("/icons.svg")
+    async def serve_icons():
+        return FileResponse(os.path.join(frontend_dist, "icons.svg"))
 
     print(f"[UNIFICADO] Sirviendo SIMCO frontend desde: {frontend_dist}")
 

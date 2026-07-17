@@ -65,6 +65,57 @@ class ApiClient:
         req = urllib.request.Request(full_url, headers=self._headers(), method="GET")
         return self._open(req)
 
+    def get_raw(self, url, params=None):
+        full_url = self.base_url + url
+        if params:
+            query = urllib.parse.urlencode(params, doseq=True)
+            full_url += "?" + query
+        req = urllib.request.Request(full_url, headers=self._headers(), method="GET")
+        try:
+            with urllib.request.urlopen(req, timeout=60) as resp:
+                return resp.read()
+        except urllib.error.HTTPError as e:
+            return self._handle_raw_http_error(e, req)
+        except Exception:
+            return {
+                "success": False,
+                "mensaje": "Error de conexión con el servidor"
+            }
+
+    def _handle_raw_http_error(self, error, original_req):
+        status = error.code
+        try:
+            body = error.read().decode("utf-8")
+            data = json.loads(body)
+        except Exception:
+            data = {"success": False, "mensaje": f"HTTP {status}"}
+
+        if status == 401 and self.refresh_token:
+            if self._try_refresh():
+                new_req = urllib.request.Request(
+                    original_req.full_url,
+                    data=original_req.data,
+                    headers=self._headers(),
+                    method=original_req.method
+                )
+                return self.get_raw(new_req.full_url)
+
+        if not isinstance(data, dict) or "success" not in data:
+            detail = data.get("detail") if isinstance(data, dict) else None
+            if detail is None:
+                detail = data if isinstance(data, str) else f"HTTP {status}"
+            elif isinstance(detail, list):
+                detail = "; ".join(
+                    d.get("msg", str(d)) for d in detail if isinstance(d, dict)
+                ) or str(detail)
+            data = {
+                "success": False,
+                "mensaje": detail,
+                "status": status
+            }
+
+        return data
+
     def post(self, url, data):
         req = urllib.request.Request(
             self.base_url + url,

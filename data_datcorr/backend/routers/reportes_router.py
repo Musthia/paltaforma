@@ -38,7 +38,7 @@ def listar_consultas(usuario_actual=Depends(obtener_usuario_actual)):
 @router.get("/kpis")
 def kpis(usuario_actual=Depends(obtener_usuario_actual)):
     try:
-        return svc.get_kpis(es_admin=_es_admin(usuario_actual), usuario_actual=usuario_actual.usuario)
+        return svc.get_kpis(es_admin=_es_admin(usuario_actual), usuario_actual=usuario_actual.username)
     except HTTPException:
         raise
     except Exception as e:
@@ -54,7 +54,7 @@ def actividad_usuarios(
 ):
     try:
         return svc.get_actividad_usuarios(desde, hasta, limite, pagina,
-                                          _es_admin(usuario_actual), usuario_actual.usuario)
+                                          _es_admin(usuario_actual), usuario_actual.username)
     except HTTPException:
         raise
     except Exception as e:
@@ -68,7 +68,7 @@ def evolucion_diaria(
     usuario_actual=Depends(obtener_usuario_actual),
 ):
     try:
-        return svc.get_evolucion_diaria(desde, hasta, _es_admin(usuario_actual), usuario_actual.usuario)
+        return svc.get_evolucion_diaria(desde, hasta, _es_admin(usuario_actual), usuario_actual.username)
     except HTTPException:
         raise
     except Exception as e:
@@ -82,7 +82,7 @@ def tipos_operacion(
     usuario_actual=Depends(obtener_usuario_actual),
 ):
     try:
-        return svc.get_tipos_operacion(desde, hasta, _es_admin(usuario_actual), usuario_actual.usuario)
+        return svc.get_tipos_operacion(desde, hasta, _es_admin(usuario_actual), usuario_actual.username)
     except HTTPException:
         raise
     except Exception as e:
@@ -96,7 +96,7 @@ def usuarios_inactivos(
     usuario_actual=Depends(obtener_usuario_actual),
 ):
     try:
-        return svc.get_usuarios_inactivos(dias, _es_admin(usuario_actual), usuario_actual.usuario)
+        return svc.get_usuarios_inactivos(dias, _es_admin(usuario_actual), usuario_actual.username)
     except HTTPException:
         raise
     except Exception as e:
@@ -125,7 +125,7 @@ def alertas(
 ):
     try:
         return svc.get_alertas(min_borrados, min_login_fallidos, ventana_horas, limite,
-                               _es_admin(usuario_actual), usuario_actual.usuario)
+                               _es_admin(usuario_actual), usuario_actual.username)
     except HTTPException:
         raise
     except Exception as e:
@@ -144,10 +144,10 @@ def ejecutar_consulta(
         filtros = dict(request.query_params)
 
         result = svc.ejecutar_consulta(consulta_id, filtros,
-                                       _es_admin(usuario_actual), usuario_actual.usuario)
+                                       _es_admin(usuario_actual), usuario_actual.username)
 
         registrar_auditoria(
-            db=db, usuario=usuario_actual.usuario, accion="CONSULTA",
+            db=db, usuario=usuario_actual.username, accion="CONSULTA",
             tabla=f"reportes.{consulta_id}",
             detalle=f"Ejecutó reporte '{consulta_id}' con filtros: {filtros}"
         )
@@ -175,7 +175,7 @@ def exportar_consulta(
         filtros.pop("formato", None)
 
         result = svc.ejecutar_consulta(consulta_id, filtros,
-                                       _es_admin(usuario_actual), usuario_actual.usuario)
+                                       _es_admin(usuario_actual), usuario_actual.username)
         datos = result["datos"]
         nombre_archivo = f"reporte_{consulta_id}"
 
@@ -183,7 +183,7 @@ def exportar_consulta(
         response = exportador.exportar(datos, nombre_archivo)
 
         registrar_auditoria(
-            db=db, usuario=usuario_actual.usuario, accion="REPORTE_EXPORT",
+            db=db, usuario=usuario_actual.username, accion="REPORTE_EXPORT",
             tabla=f"reportes.{consulta_id}",
             detalle=f"Exportó '{consulta_id}' en formato {formato}. Filtros: {filtros}"
         )

@@ -1,8 +1,10 @@
+import os
+
 from PySide6.QtWidgets import (
     QDialog, QVBoxLayout, QHBoxLayout, QComboBox, QPushButton,
     QTableWidget, QTableWidgetItem, QLabel, QMessageBox,
     QHeaderView, QWidget, QFormLayout, QLineEdit, QDateEdit,
-    QGroupBox, QGridLayout, QFrame,
+    QGroupBox, QGridLayout, QFrame, QFileDialog,
 )
 from PySide6.QtCore import Qt, QDate
 from PySide6.QtGui import QIcon
@@ -89,7 +91,12 @@ class ReportesViewer(QDialog):
         if not client:
             return
         data = client.listar_consultas()
-        self._consultas = data.get("consultas", []) if isinstance(data, dict) else []
+        if not isinstance(data, dict):
+            return
+        if not data.get("success", True):
+            QMessageBox.warning(self, "Reportes", data.get("mensaje", "Error al cargar reportes"))
+            return
+        self._consultas = data.get("consultas", [])
         self._combo_reporte.clear()
         self._combo_reporte.addItem("-- Seleccionar --", None)
         for c in self._consultas:
@@ -100,7 +107,7 @@ class ReportesViewer(QDialog):
         if not client:
             return
         data = client.kpis()
-        if isinstance(data, dict):
+        if isinstance(data, dict) and data.get("success", True):
             for key, lbl in self._kpi_labels.items():
                 val = data.get(key, "--")
                 if val is not None:
@@ -187,6 +194,10 @@ class ReportesViewer(QDialog):
             QMessageBox.critical(self, "Error", "Respuesta inválida del servidor")
             return
 
+        if not data.get("success", True):
+            QMessageBox.critical(self, "Error", data.get("mensaje", "Error al ejecutar reporte"))
+            return
+
         self._columnas = data.get("columnas", [])
         self._datos = data.get("datos", [])
 
@@ -223,12 +234,29 @@ class ReportesViewer(QDialog):
             if val:
                 filtros[key] = val
 
+        default_name = f"reporte_{consulta_id}.{formato}"
+        file_path, _ = QFileDialog.getSaveFileName(
+            self, "Guardar reporte", default_name,
+            f"*.{formato}" if formato != "csv" else "CSV (*.csv)"
+        )
+        if not file_path:
+            return
+
         client = SessionManager.get_reportes_client()
         if not client:
             return
 
-        result = client.exportar_consulta(consulta_id, formato=formato, **filtros)
-        if isinstance(result, dict) and not result.get("success", True):
-            QMessageBox.critical(self, "Error", result.get("mensaje", "Error al exportar"))
-        else:
-            QMessageBox.information(self, "Exportar", f"Reporte exportado como {formato.upper()}")
+        raw = client.exportar_consulta(consulta_id, formato=formato, **filtros)
+        if isinstance(raw, dict) and not raw.get("success", True):
+            QMessageBox.critical(self, "Error", raw.get("mensaje", "Error al exportar"))
+            return
+
+        try:
+            with open(file_path, "wb") as f:
+                if isinstance(raw, bytes):
+                    f.write(raw)
+                else:
+                    f.write(raw.encode("utf-8"))
+            QMessageBox.information(self, "Exportar", f"Reporte guardado en:\n{file_path}")
+        except Exception as e:
+            QMessageBox.critical(self, "Error", f"No se pudo guardar el archivo:\n{e}")

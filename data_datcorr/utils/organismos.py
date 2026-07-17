@@ -36,6 +36,11 @@ MAPEO_COLUMNAS_POR_ORGANISMO = {
         "estado", "ingreso", "egreso", "observaciones", "caja",
         "localidad", "legajo", "nombre_apellido", "timbrado_fiscal",
     ],
+    "IGPJ TXT LISTADO": [
+        "carpetas", "caja", "observacion", "prefijo", "legajo",
+        "localidad", "entidad", "anio", "expediente", "documento",
+        "estado", "ingreso", "egreso",
+    ],
 }
 
 

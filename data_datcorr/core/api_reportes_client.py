@@ -61,7 +61,7 @@ class ApiReportesClient:
                           **filtros):
         params = {"formato": formato}
         params.update(filtros)
-        return self._client.get(
+        return self._client.get_raw(
             f"/reportes/exportar/{consulta_id}",
             params=params
         )

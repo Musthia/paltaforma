@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QMessageBox
 
 
 def cargar_plantilla(nombre_base, tabwidget, parent=None):
-    modulo_nombre = f"ui.plantilla_{nombre_base}"
+    modulo_nombre = f"ui.plantilla_{nombre_base.replace(' ', '_')}"
     #modulo_nombre = f"ui.plantilla_MATERNIDAD"
 
     try:
