@@ -28,7 +28,6 @@ def configurar_logging():
         format="%(asctime)s [%(levelname)s] %(message)s",
         handlers=[logging.StreamHandler(sys.stdout)],
     )
-    logging.debug("Logging inicializado")
 
 
 configurar_logging()
@@ -152,11 +151,11 @@ class InicioSesion(QMainWindow):
     
         descripcion_nivel = obtener_descripcion_nivel(nivel)
     
-        QMessageBox.information(
-            self,
-            "Inicio de Sesión",
-            f"Bienvenido {nombre_usuario}\n\nRol: {rol}\nNivel: {descripcion_nivel}"
-        )
+        #QMessageBox.information(
+        #    self,
+        #    "Inicio de Sesión",
+        #    f"Bienvenido {nombre_usuario}\n\nRol: {rol}\nNivel: {descripcion_nivel}"
+        #)
     
         # -----------------------------------
         # ABRIR SISTEMA

@@ -104,8 +104,6 @@ class VentanaPrincipal(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        logging.debug("Inicializando ventana principal...")
-
         # -----------------------------------
         # VALIDAR SESIÓN
         # -----------------------------------
@@ -136,8 +134,6 @@ class VentanaPrincipal(QMainWindow):
             SessionManager.logout()
             self.close()
             return
-
-        logging.debug("Acceso autorizado a ventana principal.")
 
         # -----------------------------------
         # USUARIO ACTUAL

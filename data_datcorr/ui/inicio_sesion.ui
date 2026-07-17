@@ -5,14 +5,14 @@
   <property name="enabled">
    <bool>true</bool>
   </property>
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>308</width>
-     <height>230</height>
-    </rect>
-   </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>308</width>
+    <height>230</height>
+   </rect>
+  </property>
   <property name="focusPolicy">
    <enum>Qt::FocusPolicy::WheelFocus</enum>
   </property>
@@ -279,9 +279,10 @@ background-color: rgb(0, 127, 190);</string>
     </property>
     <property name="font">
      <font>
-      <familyset>Segoe UI</familyset>
+      <family>Segoe UI</family>
       <pointsize>9</pointsize>
       <italic>true</italic>
+      <underline>true</underline>
      </font>
     </property>
     <property name="cursor">
@@ -1402,9 +1403,9 @@ background-color: rgb(0, 127, 190);</string>
  <tabstops>
   <tabstop>entry_usuario</tabstop>
   <tabstop>entry_contrasena</tabstop>
-   <tabstop>boton_iniciar_sesion</tabstop>
-   <tabstop>boton_recuperar_contrasena</tabstop>
-  </tabstops>
+  <tabstop>boton_iniciar_sesion</tabstop>
+  <tabstop>boton_recuperar_contrasena</tabstop>
+ </tabstops>
  <resources>
   <include location="../img/fondo_ini_ses.qrc"/>
  </resources>
@@ -1426,18 +1427,34 @@ background-color: rgb(0, 127, 190);</string>
    </hints>
   </connection>
   <connection>
+   <sender>boton_iniciar_sesion</sender>
+   <signal>pressed()</signal>
+   <receiver>entry_usuario</receiver>
+   <slot>selectAll()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>146</x>
+     <y>132</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>140</x>
+     <y>33</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
    <sender>entry_contrasena</sender>
    <signal>returnPressed()</signal>
    <receiver>boton_iniciar_sesion</receiver>
    <slot>click()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>265</x>
-     <y>73</y>
+     <x>263</x>
+     <y>70</y>
     </hint>
     <hint type="destinationlabel">
-     <x>260</x>
-     <y>121</y>
+     <x>258</x>
+     <y>122</y>
     </hint>
    </hints>
   </connection>
