@@ -134,10 +134,11 @@ class ApiClient:
         )
         return self._open(req)
 
-    def patch(self, url, data):
+    def patch(self, url, data=None):
+        body = json.dumps(data).encode("utf-8") if data is not None else None
         req = urllib.request.Request(
             self.base_url + url,
-            data=json.dumps(data).encode("utf-8"),
+            data=body,
             headers=self._headers(),
             method="PATCH"
         )

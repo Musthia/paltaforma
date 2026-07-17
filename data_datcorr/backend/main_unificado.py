@@ -8,10 +8,12 @@ import sys
 from dotenv import load_dotenv
 load_dotenv()
 
-# ── Agregar SIMCO al path para poder importar sus routers ─────────────
-SIMCO_BACKEND = os.path.join(os.path.dirname(__file__), "..", "..", "simco_v01", "backend")
-if SIMCO_BACKEND not in sys.path:
-    sys.path.insert(0, SIMCO_BACKEND)
+# ── Agregar rutas base al path ──────────────────────────────────────────
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))   # data_datcorr
+PLATAFORMA_DIR = os.path.dirname(BASE_DIR)                               # C:\plataforma
+for p in [PLATAFORMA_DIR, os.path.join(PLATAFORMA_DIR, "simco_v01", "backend")]:
+    if p not in sys.path:
+        sys.path.insert(0, p)
 
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -44,6 +46,8 @@ from app.api.routes.ws import router as simco_ws_router, start_poller
 from app.api.routes.buscar import router as simco_buscar_router
 from app.api.routes.notificaciones import router as simco_notificaciones_router
 from app.api.routes.messages import router as simco_messages_router
+
+from app.db.init_db import init_db as simco_init_db
 
 # ── Middleware compartido ──────────────────────────────────────────────
 from backend.middleware.jwt_middleware import JWTMiddleware
@@ -126,6 +130,10 @@ def health():
 @app.get("/api/health")
 def api_health():
     return {"message": "Plataforma Unificada funcionando"}
+
+# ── Inicializar tablas SIMCO y WebSocket poller ───────────────────────
+simco_init_db()
+start_poller()
 
 # ── Servir frontend compilado SIMCO (producción) ──────────────────────
 frontend_dist = os.path.join(

@@ -1,16 +1,26 @@
 import { useEffect, useState } from "react";
 import type { CSSProperties } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { loginRequest, refreshTokenRequest } from "../api/auth";
 import { getAccessToken, getRefreshToken, setTokens, isTokenExpired } from "../auth/token";
 
 export default function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [searchParams] = useSearchParams();
 
     const navigate = useNavigate();
 
     useEffect(() => {
+        // SSO: token pasado como query param desde la app de escritorio
+        const urlToken = searchParams.get("token");
+        const urlRefresh = searchParams.get("refresh_token");
+        if (urlToken) {
+            setTokens(urlToken, urlRefresh || "");
+            navigate("/dashboard", { replace: true });
+            return;
+        }
+
         const access = getAccessToken();
         if (access && !isTokenExpired(access)) {
             navigate("/dashboard", { replace: true });
@@ -25,7 +35,7 @@ export default function Login() {
                 })
                 .catch(() => {});
         }
-    }, [navigate]);
+    }, [navigate, searchParams]);
 
     const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();

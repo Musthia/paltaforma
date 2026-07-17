@@ -6,7 +6,7 @@ from app.models import user, solicitud, respuesta, audit  # noqa
 
 def init_db():
     Base.metadata.create_all(bind=engine)
-    print("✔ Tablas creadas correctamente (SiMCo)")
+    print("[SIMCO] Tablas creadas correctamente")
 
 if __name__ == "__main__":
     init_db()

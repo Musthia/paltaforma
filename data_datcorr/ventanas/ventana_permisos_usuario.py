@@ -203,19 +203,25 @@ class VentanaPermisosUsuario(QDialog):
         client = SessionManager.get_usuarios_client()
 
         resultado_sistema = client.listar_permisos()
-        permisos_sistema = resultado_sistema.get(
-            "permisos", []
-        )
+        if isinstance(resultado_sistema, list):
+            permisos_sistema = resultado_sistema
+        else:
+            permisos_sistema = resultado_sistema.get(
+                "permisos", []
+            )
 
         resultado_usuario = client.listar_permisos_usuario(
             get_usuario_attr(self.usuario, "id")
         )
-        permisos_usuario = resultado_usuario.get(
-            "permisos", []
-        )
+        if isinstance(resultado_usuario, list):
+            permisos_usuario = resultado_usuario
+        else:
+            permisos_usuario = resultado_usuario.get(
+                "permisos", []
+            )
 
         codigos_usuario = [
-            p.get("codigo", "")
+            p.get("code", "") if isinstance(p, dict) else p
             for p in permisos_usuario
         ]
 
@@ -225,7 +231,7 @@ class VentanaPermisosUsuario(QDialog):
 
         for permiso in permisos_sistema:
 
-            codigo = permiso.get("codigo", "")
+            codigo = permiso.get("code", "") if isinstance(permiso, dict) else permiso
 
             if codigo in codigos_usuario:
 

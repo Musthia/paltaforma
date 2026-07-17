@@ -168,7 +168,11 @@ class InicioSesion(QMainWindow):
             import webbrowser
             from urllib.parse import urlencode
             token = resultado.get("access_token", "")
-            webbrowser.open("http://localhost:8000/simco/?" + urlencode({"token": token}))
+            refresh = resultado.get("refresh_token", "")
+            params = {"token": token}
+            if refresh:
+                params["refresh_token"] = refresh
+            webbrowser.open("http://localhost:8000/simco/?" + urlencode(params))
             QMessageBox.information(self, "Acceso",
                 "Tu rol solo tiene acceso a SIMCO.\nSe abrirá en el navegador.")
             return
