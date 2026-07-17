@@ -25,7 +25,7 @@ class DBRegistry:
         print("[REGISTRY] engine seteado:", engine)
 
     def get_engine(self):
-        print("GET REGISTRY:", id(self))
+        #print("GET REGISTRY:", id(self))
         print("ENGINE:", self.engine)
         print("[REGISTRY] engine leído:", self.engine)
         return self.engine

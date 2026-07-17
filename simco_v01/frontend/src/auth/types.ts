@@ -1,9 +1,12 @@
 import type { JwtPayload } from "jwt-decode";
 
+export type Role = "admin" | "oficina" | "deposito" | "consulta";
+
 export interface UserToken extends JwtPayload {
     sub: string;
-    id: number;
-    role: "admin" | "oficina" | "deposito" | "consulta";
-    username: string;
+    user_id: number;
+    role: Role;
+    nivel: number;
+    is_superuser: boolean;
     full_name: string;
 }

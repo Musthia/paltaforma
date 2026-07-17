@@ -71,7 +71,10 @@ export default function Dashboard() {
                     iconColor="#16a34a"
                     label="Registros totales"
                     value={stats.total_registros.toLocaleString()}
-                    sub="Suma de todas las bases"
+                    sub={
+                        (stats.total_datcorr?.toLocaleString() || "0") + " DATCORR · " +
+                        (stats.total_verificado?.toLocaleString() || "0") + " VERIFICADO"
+                    }
                 />
                 <KpiCard
                     icon="U"
@@ -101,6 +104,8 @@ export default function Dashboard() {
                                 <tr>
                                     <th style={thStyles}>Base</th>
                                     <th style={{ ...thStyles, textAlign: "right" }}>Registros</th>
+                                    <th style={{ ...thStyles, textAlign: "right" }}>DATCORR</th>
+                                    <th style={{ ...thStyles, textAlign: "right" }}>VERIFICADO</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -110,6 +115,12 @@ export default function Dashboard() {
                                         <td style={{ ...tdStyles, textAlign: "right", fontWeight: 600 }}>
                                             {b.registros.toLocaleString()}
                                         </td>
+                                        <td style={{ ...tdStyles, textAlign: "right", color: "#0284c7" }}>
+                                            {(b.datcorr || 0).toLocaleString()}
+                                        </td>
+                                        <td style={{ ...tdStyles, textAlign: "right", color: "#16a34a" }}>
+                                            {(b.verificado || 0).toLocaleString()}
+                                        </td>
                                     </tr>
                                 ))}
                             </tbody>
@@ -118,6 +129,12 @@ export default function Dashboard() {
                                     <td style={{ ...tdStyles, fontWeight: 700, borderTop: "2px solid var(--border-color)" }}>TOTAL</td>
                                     <td style={{ ...tdStyles, fontWeight: 700, textAlign: "right", borderTop: "2px solid var(--border-color)" }}>
                                         {stats.total_registros.toLocaleString()}
+                                    </td>
+                                    <td style={{ ...tdStyles, fontWeight: 700, textAlign: "right", borderTop: "2px solid var(--border-color)", color: "#0284c7" }}>
+                                        {(stats.total_datcorr || 0).toLocaleString()}
+                                    </td>
+                                    <td style={{ ...tdStyles, fontWeight: 700, textAlign: "right", borderTop: "2px solid var(--border-color)", color: "#16a34a" }}>
+                                        {(stats.total_verificado || 0).toLocaleString()}
                                     </td>
                                 </tr>
                             </tfoot>

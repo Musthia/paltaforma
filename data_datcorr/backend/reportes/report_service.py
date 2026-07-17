@@ -39,14 +39,22 @@ class ReportService:
 
     def get_kpis(self, es_admin: bool = True, usuario_actual: str = ""):
         total_registros = 0
+        total_datcorr = 0
+        total_verificado = 0
         for s in SCHEMAS:
             cnt = self.repo.scalar(f'SELECT COUNT(*) FROM "{s}"."Datcorr_database"') or 0
+            dat = self.repo.scalar(f"""SELECT COUNT(*) FROM "{s}"."Datcorr_database" WHERE estado = 'DATCORR'""") or 0
+            ver = self.repo.scalar(f"""SELECT COUNT(*) FROM "{s}"."Datcorr_database" WHERE estado = 'VERIFICADO'""") or 0
             total_registros += cnt
+            total_datcorr += dat
+            total_verificado += ver
         activos = self.repo.scalar("SELECT COUNT(*) FROM public.usuarios WHERE activo = true") or 0
         total_usuarios = self.repo.scalar("SELECT COUNT(*) FROM public.usuarios") or 0
         alertas = self._contar_alertas()
         return {
             "total_registros": total_registros,
+            "total_datcorr": total_datcorr,
+            "total_verificado": total_verificado,
             "usuarios_activos": activos,
             "total_usuarios": total_usuarios,
             "alertas_pendientes": alertas,
@@ -110,7 +118,9 @@ class ReportService:
         resultados = []
         for s in SCHEMAS:
             cnt = self.repo.scalar(f'SELECT COUNT(*) FROM "{s}"."Datcorr_database"') or 0
-            resultados.append({"base": s, "schema": s, "registros": cnt})
+            dat = self.repo.scalar(f"""SELECT COUNT(*) FROM "{s}"."Datcorr_database" WHERE estado = 'DATCORR'""") or 0
+            ver = self.repo.scalar(f"""SELECT COUNT(*) FROM "{s}"."Datcorr_database" WHERE estado = 'VERIFICADO'""") or 0
+            resultados.append({"base": s, "schema": s, "registros": cnt, "datcorr": dat, "verificado": ver})
         return resultados
 
     def get_alertas(self, min_borrados: int = 50, min_login_fallidos: int = 5,

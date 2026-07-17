@@ -2,7 +2,7 @@ NOMBRE = "Inventario"
 DESCRIPCION = "Cantidad de expedientes, cajas, estado, organismo y localidad"
 PERMISO_REQUERIDO = None
 
-COLUMNAS = ["schema", "base", "registros"]
+COLUMNAS = ["schema", "base", "registros", "datcorr", "verificado"]
 
 FILTROS = []
 
@@ -15,5 +15,7 @@ def ejecutar(repo):
     resultados = []
     for schema, nombre in schemas:
         cnt = repo.scalar(f'SELECT COUNT(*) FROM "{schema}"."Datcorr_database"') or 0
-        resultados.append({"schema": schema, "base": nombre, "registros": cnt})
+        dat = repo.scalar(f"""SELECT COUNT(*) FROM "{schema}"."Datcorr_database" WHERE estado = 'DATCORR'""") or 0
+        ver = repo.scalar(f"""SELECT COUNT(*) FROM "{schema}"."Datcorr_database" WHERE estado = 'VERIFICADO'""") or 0
+        resultados.append({"schema": schema, "base": nombre, "registros": cnt, "datcorr": dat, "verificado": ver})
     return resultados

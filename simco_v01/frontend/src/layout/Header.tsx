@@ -8,6 +8,8 @@ import { getAvailableUsers, sendMessage, getUnreadCount } from "../api/messages"
 export default function Header() {
   const navigate = useNavigate();
   const user = getUser();
+  //console.log(user);
+  console.log("USER =", user);
   const { activeTab, tabs, openTab } = useTabs();
   const [showModal, setShowModal] = useState(false);
   const [users, setUsers] = useState<any[]>([]);
@@ -59,6 +61,8 @@ export default function Header() {
   const role = user?.role;
   const showMessages = role !== "consulta";
 
+  console.log("USER =", user);
+  
   return (
     <header style={styles.header}>
       <div style={styles.left}>
@@ -76,17 +80,19 @@ export default function Header() {
           </button>
         )}
 
-        <div
-          style={styles.avatarWrapper}
-          title={user?.username || "Usuario"}
-          onClick={() => setShowModal(true)}
-        >
-          <div style={styles.avatar}>
-            {user?.username?.charAt(0).toUpperCase() || "U"}
-          </div>
+        <div style={styles.userMeta}>
+            <span style={styles.userName}>
+                {user?.full_name || user?.sub}
+            </span>
+            <span style={styles.userRole}>
+                {user?.role}
+            </span>
+        </div>
+        <div style={styles.avatar}>
+            {(user?.full_name || user?.sub)?.charAt(0).toUpperCase() || "U"}
         </div>
         <button style={styles.logoutBtn} onClick={logout}>
-          Cerrar sesión
+            Cerrar sesión
         </button>
       </div>
 

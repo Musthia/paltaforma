@@ -142,6 +142,8 @@ export default function ReportesPage() {
                 <Grid container spacing={2} sx={{ mb: 3 }}>
                     {[
                         { label: "Total Registros", value: kpis.total_registros?.toLocaleString() },
+                        { label: "DATCORR", value: (kpis.total_datcorr || 0).toLocaleString(), color: "#0284c7" },
+                        { label: "VERIFICADO", value: (kpis.total_verificado || 0).toLocaleString(), color: "#16a34a" },
                         { label: "Usuarios Activos", value: kpis.usuarios_activos },
                         { label: "Total Usuarios", value: kpis.total_usuarios },
                         { label: "Alertas Pendientes", value: kpis.alertas_pendientes, color: kpis.alertas_pendientes > 0 ? "error.main" : undefined },

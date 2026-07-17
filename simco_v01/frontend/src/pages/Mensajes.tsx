@@ -54,7 +54,7 @@ export default function Mensajes() {
   };
 
   const handleMarkRead = async (msg: MessageOut) => {
-    if (msg.receiver_id === user?.id && !msg.read_at) {
+    if (msg.receiver_id === user?.user_id && !msg.read_at) {
       try {
         await markAsRead(msg.id);
         if (view === "general") {
@@ -67,7 +67,7 @@ export default function Mensajes() {
   };
 
   const msgs = view === "general" ? general : privados;
-  const otherUsers = users.filter((u) => u.id !== user?.id);
+  const otherUsers = users.filter((u) => u.id !== user?.user_id);
 
   return (
     <div style={styles.container}>
@@ -112,9 +112,9 @@ export default function Mensajes() {
             key={msg.id}
             style={{
               ...styles.messageCard,
-              borderLeft: `4px solid ${msg.is_general ? "#0ea5e9" : msg.sender_id === user?.id ? "#059669" : "#d97706"}`,
-              opacity: msg.receiver_id === user?.id && !msg.read_at ? 1 : 0.7,
-              cursor: msg.receiver_id === user?.id && !msg.read_at ? "pointer" : "default",
+              borderLeft: `4px solid ${msg.is_general ? "#0ea5e9" : msg.sender_id === user?.user_id ? "#059669" : "#d97706"}`,
+              opacity: msg.receiver_id === user?.user_id && !msg.read_at ? 1 : 0.7,
+              cursor: msg.receiver_id === user?.user_id && !msg.read_at ? "pointer" : "default",
             }}
             onClick={() => handleMarkRead(msg)}
           >
@@ -122,7 +122,7 @@ export default function Mensajes() {
               <strong>{msg.sender_name || `Usuario #${msg.sender_id}`}</strong>
               {msg.receiver_name && <span style={{ color: "#6b7280" }}> → {msg.receiver_name}</span>}
               <span style={styles.msgDate}>{formatDateTime(msg.created_at)}</span>
-              {msg.receiver_id === user?.id && !msg.read_at && <span style={styles.badge}>Nuevo</span>}
+              {msg.receiver_id === user?.user_id && !msg.read_at && <span style={styles.badge}>Nuevo</span>}
             </div>
             <div style={styles.msgContent}>{msg.content}</div>
           </div>

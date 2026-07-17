@@ -18,13 +18,23 @@ def dashboard_stats():
     with postgres_engine.connect() as conn:
         bases = []
         total = 0
+        total_datcorr = 0
+        total_verificado = 0
         for s in SCHEMAS:
             result = conn.execute(
                 text('SELECT COUNT(*) FROM "{0}"."Datcorr_database"'.format(s))
             )
             count = result.scalar()
-            bases.append({"nombre": s, "registros": count})
+            dat = conn.execute(
+                text("""SELECT COUNT(*) FROM "{0}"."Datcorr_database" WHERE estado = 'DATCORR'""".format(s))
+            ).scalar() or 0
+            ver = conn.execute(
+                text("""SELECT COUNT(*) FROM "{0}"."Datcorr_database" WHERE estado = 'VERIFICADO'""".format(s))
+            ).scalar() or 0
+            bases.append({"nombre": s, "registros": count, "datcorr": dat, "verificado": ver})
             total += count
+            total_datcorr += dat
+            total_verificado += ver
 
         user_count = conn.execute(
             text("SELECT COUNT(*) FROM public.usuarios WHERE activo = true")
@@ -54,6 +64,8 @@ def dashboard_stats():
     return {
         "bases": bases,
         "total_registros": total,
+        "total_datcorr": total_datcorr,
+        "total_verificado": total_verificado,
         "total_bases": len(SCHEMAS),
         "usuarios_activos": user_count or 0,
         "total_usuarios": user_total or 0,

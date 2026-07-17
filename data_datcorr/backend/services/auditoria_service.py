@@ -1,10 +1,9 @@
-from sqlalchemy.orm import Session
-
 from platformcore.services.audit import AuditService
+from platformcore.database import SessionLocal as PlatformSessionLocal
 
 
 def registrar_auditoria(
-    db: Session,
+    db=None,
     usuario: str = "",
     accion: str = "",
     tabla: str = "",
@@ -16,16 +15,20 @@ def registrar_auditoria(
     user_agent=None,
     token_jti=None,
 ):
-    AuditService.record(
-        db=db,
-        username=usuario,
-        action=accion,
-        entity=tabla,
-        entity_id=registro_id,
-        endpoint=endpoint,
-        detail=detalle,
-        ip_address=ip_address or ip,
-        user_agent=user_agent,
-        token_jti=token_jti,
-        module="datcorr",
-    )
+    session = PlatformSessionLocal()
+    try:
+        AuditService.record(
+            db=session,
+            username=usuario,
+            action=accion,
+            entity=tabla,
+            entity_id=registro_id,
+            endpoint=endpoint,
+            detail=detalle,
+            ip_address=ip_address or ip,
+            user_agent=user_agent,
+            token_jti=token_jti,
+            module="datcorr",
+        )
+    finally:
+        session.close()

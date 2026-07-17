@@ -48,6 +48,7 @@ from app.api.routes.notificaciones import router as simco_notificaciones_router
 from app.api.routes.messages import router as simco_messages_router
 
 from app.db.init_db import init_db as simco_init_db
+from platformcore.database import init_db as platform_init_db
 
 # ── Middleware compartido ──────────────────────────────────────────────
 from backend.middleware.jwt_middleware import JWTMiddleware
@@ -131,7 +132,8 @@ def health():
 def api_health():
     return {"message": "Plataforma Unificada funcionando"}
 
-# ── Inicializar tablas SIMCO y WebSocket poller ───────────────────────
+# ── Inicializar tablas platform, SIMCO y WebSocket poller ────────────
+platform_init_db()
 simco_init_db()
 start_poller()
 

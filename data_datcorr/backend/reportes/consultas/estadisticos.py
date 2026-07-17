@@ -56,7 +56,7 @@ def ejecutar(repo, desde=None, hasta=None, es_admin=True, usuario_actual=""):
     """
     resultados += repo.fetchall(sql, params)
 
-    # Ocupación por base (total registros)
+    # Ocupación por base (total registros y desglose por estado)
     schemas = [
         ("ips", "IPS"), ("pediatrico", "PEDIATRICO"), ("igpj", "IGPJ"),
         ("igpj_txt_listado", "IGPJ TXT LISTADO"), ("igpj_listado_nuevo", "IGPJ_LISTADO_NUEVO"),
@@ -65,5 +65,9 @@ def ejecutar(repo, desde=None, hasta=None, es_admin=True, usuario_actual=""):
     for schema, nombre in schemas:
         cnt = repo.scalar(f'SELECT COUNT(*) FROM "{schema}"."Datcorr_database"') or 0
         resultados.append({"periodo": "actual", "tipo": f"ocupacion_{nombre.lower().replace(' ','_')}", "cantidad": cnt})
+        dat = repo.scalar(f"""SELECT COUNT(*) FROM "{schema}"."Datcorr_database" WHERE estado = 'DATCORR'""") or 0
+        resultados.append({"periodo": "actual", "tipo": f"datcorr_{nombre.lower().replace(' ','_')}", "cantidad": dat})
+        ver = repo.scalar(f"""SELECT COUNT(*) FROM "{schema}"."Datcorr_database" WHERE estado = 'VERIFICADO'""") or 0
+        resultados.append({"periodo": "actual", "tipo": f"verificado_{nombre.lower().replace(' ','_')}", "cantidad": ver})
 
     return resultados
