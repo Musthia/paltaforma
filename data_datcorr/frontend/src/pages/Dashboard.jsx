@@ -29,13 +29,13 @@ export default function Dashboard() {
         return (
             <div style={loadingStyles.container}>
                 <div style={loadingStyles.spinner} />
-                <p style={{ marginTop: 12, color: "#64748b", fontSize: 14 }}>Cargando panel...</p>
+                <p style={loadingStyles.text}>Cargando panel...</p>
             </div>
         );
     }
 
     return (
-        <div>
+        <div style={dashboardStyles.wrapper}>
             {/* ── Welcome Card ── */}
             <div style={welcomeStyles.card}>
                 <div style={welcomeStyles.content}>
@@ -44,13 +44,12 @@ export default function Dashboard() {
                         Gestione y supervise las bases de datos documentales del sistema DatCorr.
                     </p>
                 </div>
-                <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-
+                <div style={welcomeStyles.actions}>
                     <div style={welcomeStyles.badge}>
                         <span style={welcomeStyles.badgeText}>v1.0</span>
                     </div>
                     <button onClick={handleLogout} style={logoutBtnStyles}>
-                        Cerrar sesion
+                        Cerrar sesión
                     </button>
                 </div>
             </div>
@@ -99,55 +98,57 @@ export default function Dashboard() {
                 <div style={bottomStyles.left}>
                     <div style={cardStyles.card}>
                         <h2 style={sectionTitle}>Registros por base</h2>
-                        <table className="pro-table">
-                            <thead>
-                                <tr>
-                                    <th style={thStyles}>Base</th>
-                                    <th style={{ ...thStyles, textAlign: "right" }}>Registros</th>
-                                    <th style={{ ...thStyles, textAlign: "right" }}>DATCORR</th>
-                                    <th style={{ ...thStyles, textAlign: "right" }}>VERIFICADO</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {stats.bases.map((b) => (
-                                    <tr key={b.nombre}>
-                                        <td style={tdStyles}>{b.nombre.replace(/_/g, " ")}</td>
-                                        <td style={{ ...tdStyles, textAlign: "right", fontWeight: 600 }}>
-                                            {b.registros.toLocaleString()}
+                        <div style={tableStyles.container}>
+                            <table style={tableStyles.table}>
+                                <thead>
+                                    <tr>
+                                        <th style={thStyles}>Base</th>
+                                        <th style={tableStyles.thRight}>Registros</th>
+                                        <th style={tableStyles.thRight}>DATCORR</th>
+                                        <th style={tableStyles.thRight}>VERIFICADO</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {stats.bases.map((b) => (
+                                        <tr key={b.nombre} style={tableStyles.tr}>
+                                            <td style={tdStyles}>{b.nombre.replace(/_/g, " ")}</td>
+                                            <td style={tableStyles.tdValue}>
+                                                {b.registros.toLocaleString()}
+                                            </td>
+                                            <td style={tableStyles.tdDatcorr}>
+                                                {(b.datcorr || 0).toLocaleString()}
+                                            </td>
+                                            <td style={tableStyles.tdVerificado}>
+                                                {(b.verificado || 0).toLocaleString()}
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                                <tfoot>
+                                    <tr style={tableStyles.tfootTr}>
+                                        <td style={tableStyles.tfootTdLabel}>TOTAL</td>
+                                        <td style={tableStyles.tfootTdValue}>
+                                            {stats.total_registros.toLocaleString()}
                                         </td>
-                                        <td style={{ ...tdStyles, textAlign: "right", color: "#0284c7" }}>
-                                            {(b.datcorr || 0).toLocaleString()}
+                                        <td style={tableStyles.tfootTdDatcorr}>
+                                            {(stats.total_datcorr || 0).toLocaleString()}
                                         </td>
-                                        <td style={{ ...tdStyles, textAlign: "right", color: "#16a34a" }}>
-                                            {(b.verificado || 0).toLocaleString()}
+                                        <td style={tableStyles.tfootTdVerificado}>
+                                            {(stats.total_verificado || 0).toLocaleString()}
                                         </td>
                                     </tr>
-                                ))}
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <td style={{ ...tdStyles, fontWeight: 700, borderTop: "2px solid var(--border-color)" }}>TOTAL</td>
-                                    <td style={{ ...tdStyles, fontWeight: 700, textAlign: "right", borderTop: "2px solid var(--border-color)" }}>
-                                        {stats.total_registros.toLocaleString()}
-                                    </td>
-                                    <td style={{ ...tdStyles, fontWeight: 700, textAlign: "right", borderTop: "2px solid var(--border-color)", color: "#0284c7" }}>
-                                        {(stats.total_datcorr || 0).toLocaleString()}
-                                    </td>
-                                    <td style={{ ...tdStyles, fontWeight: 700, textAlign: "right", borderTop: "2px solid var(--border-color)", color: "#16a34a" }}>
-                                        {(stats.total_verificado || 0).toLocaleString()}
-                                    </td>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
                 </div>
 
                 <div style={bottomStyles.right}>
                     <div style={cardStyles.card}>
                         <h2 style={sectionTitle}>Actividad reciente</h2>
-                        <div style={{ marginTop: 8 }}>
+                        <div style={tlStyles.container}>
                             {stats.actividad.length === 0 && (
-                                <p style={{ fontSize: 13, color: "var(--text-muted)" }}>Sin actividad registrada</p>
+                                <p style={tlStyles.emptyText}>Sin actividad registrada</p>
                             )}
                             {stats.actividad.map((item, i) => (
                                 <div key={i} style={tlStyles.row}>
@@ -253,180 +254,194 @@ function KpiCard({ icon, iconBg, iconColor, label, value, sub }) {
     );
 }
 
-/* ── Styles ── */
-
-const sectionTitle = {
-    fontSize: 16,
-    fontWeight: 600,
-    margin: 0,
-    marginBottom: 12,
-    color: "var(--text-primary)",
+// ── Paleta de Colores Corporativa e Inmutable ──
+const PALETTE = {
+    bgPage: "#f8fafc",
+    bgCard: "#ffffff",
+    border: "#e2e8f0",
+    textMain: "#0f172a",
+    textMuted: "#64748b",
+    primary: "#0284c7",
+    success: "#16a34a",
+    danger: "#dc2626",
+    dangerHover: "#b91c1c",
+    tableRowHover: "#f1f5f9"
 };
 
-const logoutBtnStyles = {
-    padding: "8px 16px",
-    background: "#dc2626",
-    color: "#fff",
-    border: "none",
-    borderRadius: 8,
-    fontSize: 13,
-    fontWeight: 600,
-    cursor: "pointer",
-};
-
-const loadingStyles = {
-    container: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        minHeight: 300,
-    },
-    spinner: {
-        width: 32,
-        height: 32,
-        border: "3px solid #e2e8f0",
-        borderTop: "3px solid #0284c7",
-        borderRadius: "50%",
-        animation: "spin 0.8s linear infinite",
-    },
+// ── Definición Unificada de Estilos ──
+const dashboardStyles = {
+    wrapper: {
+        backgroundColor: PALETTE.bgPage,
+        minHeight: "100vh",
+        padding: "32px",
+        fontFamily: "Inter, system-ui, sans-serif",
+        boxSizing: "border-box"
+    }
 };
 
 const welcomeStyles = {
     card: {
-        background: "linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%)",
-        borderRadius: 12,
-        padding: "24px 28px",
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        marginBottom: 20,
-        boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
+        backgroundColor: PALETTE.bgCard,
+        padding: "24px 32px",
+        borderRadius: "12px",
+        border: `1px solid ${PALETTE.border}`,
+        marginBottom: "24px",
+        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05)"
     },
-    content: { flex: 1 },
+    content: {
+        display: "flex",
+        flexDirection: "column",
+        gap: "6px"
+    },
     title: {
-        fontSize: 20,
-        fontWeight: 700,
-        color: "#0284c7",
+        fontSize: "26px",
+        fontWeight: "700",
+        color: PALETTE.textMain,
         margin: 0,
-        letterSpacing: "-0.4px",
+        letterSpacing: "-0.02em"
     },
     desc: {
-        fontSize: 13,
-        color: "#38bdf8",
-        marginTop: 6,
-        maxWidth: 420,
+        fontSize: "14px",
+        color: PALETTE.textMuted,
+        margin: 0
+    },
+    actions: {
+        display: "flex",
+        alignItems: "center",
+        gap: "12px"
     },
     badge: {
-        background: "#0284c7",
-        borderRadius: 20,
-        padding: "4px 14px",
-        flexShrink: 0,
+        backgroundColor: "#f1f5f9",
+        padding: "6px 12px",
+        borderRadius: "6px",
+        border: `1px solid ${PALETTE.border}`
     },
     badgeText: {
-        color: "#fff",
-        fontSize: 12,
-        fontWeight: 600,
-    },
+        fontSize: "12px",
+        fontWeight: "600",
+        color: PALETTE.textMuted,
+        fontFamily: "monospace"
+    }
+};
+
+const logoutBtnStyles = {
+    backgroundColor: PALETTE.danger,
+    color: "#ffffff",
+    border: "none",
+    padding: "8px 16px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    fontWeight: "500",
+    fontSize: "14px",
+    transition: "background-color 0.15s ease"
 };
 
 const kpiStyles = {
     row: {
         display: "grid",
-        gridTemplateColumns: "repeat(4, 1fr)",
-        gap: 16,
-        marginBottom: 20,
+        gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
+        gap: "20px",
+        marginBottom: "24px"
     },
     card: {
-        background: "var(--bg-card, #fff)",
-        borderRadius: 12,
+        backgroundColor: PALETTE.bgCard,
+        borderRadius: "12px",
         padding: "18px 20px",
         display: "flex",
         alignItems: "center",
-        gap: 16,
-        boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
-        border: "1px solid var(--border-color, #e2e8f0)",
+        gap: "16px",
+        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05)",
+        border: `1px solid ${PALETTE.border}`
     },
     iconWrap: {
-        width: 48,
-        height: 48,
+        width: "48px",
+        height: "48px",
         borderRadius: "50%",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        flexShrink: 0,
+        flexShrink: 0
     },
-    label: { fontSize: 13, color: "var(--text-muted, #64748b)", fontWeight: 500 },
-    value: { fontSize: 26, fontWeight: 700, color: "var(--text-primary, #0f172a)", lineHeight: 1.2 },
-    sub: { fontSize: 12, color: "var(--text-secondary, #94a3b8)", marginTop: 2 },
-};
-
-const cardStyles = {
-    card: {
-        background: "var(--bg-card, #fff)",
-        borderRadius: 12,
-        padding: 20,
-        boxShadow: "0 1px 3px rgba(0,0,0,0.08)",
-        border: "1px solid var(--border-color, #e2e8f0)",
-    },
+    label: { fontSize: "13px", color: PALETTE.textMuted, fontWeight: "500" },
+    value: { fontSize: "26px", fontWeight: "700", color: PALETTE.textMain, lineHeight: 1.2 },
+    sub: { fontSize: "12px", color: PALETTE.textMuted, marginTop: "2px" }
 };
 
 const bottomStyles = {
     row: {
-        display: "flex",
-        gap: 20,
-        marginBottom: 20,
+        display: "grid",
+        gridTemplateColumns: "1.6fr 1fr",
+        gap: "24px",
+        alignItems: "start"
     },
-    left: { flex: "7", minWidth: 0 },
-    right: { flex: "3", minWidth: 0 },
+    left: { minWidth: 0 },
+    right: { minWidth: 0 }
+};
+
+const cardStyles = {
+    card: {
+        backgroundColor: PALETTE.bgCard,
+        padding: "28px",
+        borderRadius: "12px",
+        border: `1px solid ${PALETTE.border}`,
+        boxShadow: "0 1px 3px 0 rgba(0, 0, 0, 0.05)"
+    }
+};
+
+const sectionTitle = {
+    fontSize: "18px",
+    fontWeight: "600",
+    color: PALETTE.textMain,
+    margin: "0 0 20px 0",
+    letterSpacing: "-0.01em"
 };
 
 const thStyles = {
-    padding: "10px 12px",
-    textAlign: "left",
-    fontSize: 12,
-    fontWeight: 600,
-    color: "var(--text-muted, #64748b)",
-    borderBottom: "2px solid var(--border-color, #e2e8f0)",
+    padding: "12px 16px",
+    fontSize: "12px",
+    fontWeight: "600",
+    color: PALETTE.textMuted,
     textTransform: "uppercase",
-    letterSpacing: "0.5px",
+    letterSpacing: "0.05em",
+    borderBottom: `1px solid ${PALETTE.border}`,
+    textAlign: "left"
 };
-
 const tdStyles = {
-    padding: "10px 12px",
-    fontSize: 13,
-    borderBottom: "1px solid var(--border-color, #e2e8f0)",
-    color: "var(--text-primary, #0f172a)",
+    padding: "14px 16px",
+    fontSize: "14px",
+    color: PALETTE.textMain,
+    borderBottom: `1px solid ${PALETTE.border}`
 };
-
+const tableStyles = {
+    container: { overflowX: "auto" },
+    table: { width: "100%", borderCollapse: "collapse", textAlign: "left" },
+    tr: { transition: "background-color 0.15s ease" },
+    thRight: { ...thStyles, textAlign: "right" },
+    tdValue: { ...tdStyles, textAlign: "right", fontWeight: "600" },
+    tdDatcorr: { ...tdStyles, textAlign: "right", color: PALETTE.primary, fontWeight: "500" },
+    tdVerificado: { ...tdStyles, textAlign: "right", color: PALETTE.success, fontWeight: "500" },
+    tfootTr: { backgroundColor: "#fafafa" },
+    tfootTdLabel: { ...tdStyles, fontWeight: "700", borderTop: `2px solid ${PALETTE.border}`, borderBottom: "none" },
+    tfootTdValue: { ...tdStyles, fontWeight: "700", textAlign: "right", borderTop: `2px solid ${PALETTE.border}`, borderBottom: "none" },
+    tfootTdDatcorr: { ...tdStyles, fontWeight: "700", textAlign: "right", color: PALETTE.primary, borderTop: `2px solid ${PALETTE.border}`, borderBottom: "none" },
+    tfootTdVerificado: { ...tdStyles, fontWeight: "700", textAlign: "right", color: PALETTE.success, borderTop: `2px solid ${PALETTE.border}`, borderBottom: "none" }
+};
 const tlStyles = {
-    row: { display: "flex", gap: 12, marginBottom: 0 },
-    iconCol: {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        width: 28,
-        flexShrink: 0,
-    },
-    icon: {
-        width: 24,
-        height: 24,
-        borderRadius: "50%",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: 10,
-        color: "#fff",
-        fontWeight: 700,
-        flexShrink: 0,
-    },
-    line: {
-        width: 1,
-        flex: 1,
-        background: "#e2e8f0",
-        minHeight: 28,
-    },
-    textCol: { paddingBottom: 16 },
-    label: { fontSize: 13, fontWeight: 500, color: "var(--text-primary, #0f172a)" },
-    time: { fontSize: 11, color: "var(--text-muted, #64748b)", marginTop: 2 },
+    container: { marginTop: "12px", display: "flex", flexDirection: "column" },
+    emptyText: { fontSize: "13px", color: PALETTE.textMuted, margin: 0 },
+    row: { display: "flex", gap: "16px" },
+    iconCol: { display: "flex", flexDirection: "column", alignItems: "center" },
+    icon: { width: "28px", height: "28px", borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", color: "#ffffff", fontWeight: "bold", zIndex: 2 },
+    line: { width: "2px", backgroundColor: PALETTE.border, flexGrow: 1, marginTop: "4px", marginBottom: "4px" },
+    textCol: { paddingBottom: "20px", display: "flex", flexDirection: "column", gap: "4px" },
+    label: { fontSize: "14px", fontWeight: "500", color: PALETTE.textMain },
+    time: { fontSize: "12px", color: PALETTE.textMuted }
+};
+const loadingStyles = {
+    container: { display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", backgroundColor: PALETTE.bgPage },
+    spinner: { width: "32px", height: "32px", border: `3px solid ${PALETTE.border}`, borderTop: `3px solid ${PALETTE.primary}`, borderRadius: "50%", animation: "spin 1s linear infinite" },
+    text: { marginTop: "12px", color: PALETTE.textMuted, fontSize: "14px" }
 };

@@ -27,6 +27,14 @@ import { listarBases, consultarBase, buscarEnBase, eliminarRegistro } from "../s
 import EditRecordModal from "../components/modals/EditRecordModal";
 import { useTabs } from "../context/TabContext";
 
+const COLORES_COLUMNAS = {
+    n_lote: "#b400ff",
+    "hh.cc": "#c819c8",
+    expediente: "#c819c8",
+    documento: "#00e696",
+    denominacion: "#0014ff",
+};
+
 export default function DatabasePage() {
     const [bases, setBases] = useState([]);
     const [baseActual, setBaseActual] = useState("");
@@ -37,19 +45,14 @@ export default function DatabasePage() {
     const [deleteDialog, setDeleteDialog] = useState({ open: false, base: "", idRegistro: null, claveTab: "", row: null });
     const { tabs, tabIndex, setTabIndex, agregarTab, cerrarTab, setTabs, actualizarFila } = useTabs();
     const tabsRef = useRef(tabs);
-    tabsRef.current = tabs;
+
+    useEffect(() => {
+        tabsRef.current = tabs;
+    }, [tabs]);
 
     useEffect(() => {
         listarBases().then(setBases).catch(console.error);
     }, []);
-
-    const coloresColumnas = {
-        n_lote: "#b400ff",
-        "hh.cc": "#c819c8",
-        expediente: "#c819c8",
-        documento: "#00e696",
-        denominacion: "#0014ff",
-    };
 
     const construirTab = useCallback((base, modo, columnas, registros, total, page, pageSize) => {
         const cols = columnas
@@ -60,7 +63,7 @@ export default function DatabasePage() {
                 flex: 1,
                 minWidth: 120,
                 cellClassName: () => {
-                    const color = coloresColumnas[col.toLowerCase()];
+                    const color = COLORES_COLUMNAS[col.toLowerCase()];
                     if (!color) return "";
                     return `highlight-${col.toLowerCase().replace(/\s+/g, "-")}`;
                 },

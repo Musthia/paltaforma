@@ -26,18 +26,9 @@ export default function Login() {
         setLoading(true);
 
         try {
-            const res = await api.post("/auth/login", {
-                username: usuario,
-                password
-            });
-            const role = (res.data.user?.role || "").toLowerCase();
-            if (role === "consulta") {
-                const token = res.data.access_token;
-                window.location.href = "http://localhost:8000/simco/?token=" + encodeURIComponent(token);
-            } else {
-                setTokens(res.data.access_token);
-                navigate("/dashboard", { replace: true });
-            }
+            const res = await api.post("/auth/login", { usuario, password });
+            setTokens(res.data.token);
+            navigate("/dashboard", { replace: true });
         } catch (err) {
             const mensaje = err.response?.data?.detail
                 || err.response?.data?.mensaje
@@ -49,36 +40,27 @@ export default function Login() {
     };
 
     return (
-        <div className="login-page" role="main" aria-label="Página de acceso al sistema">
-            <div className="login-container">
+        <div className="login-page">
+            <div className="login-container" role="main" aria-label="Página de acceso al sistema">
 
                 <section className="login-brand" aria-label="Información institucional">
                     <div className="brand-content">
-                        <div className="" aria-hidden="true"><img src="/images/login/logo.webp" alt="" className="brand-logo-img" /></div>                        
+                        <div className="brand-logo" aria-hidden="true">D</div>
+                        <h1 className="brand-title">DatCorr</h1>
                         <p className="brand-description">
                             Digitalización, archivo y custodia segura de documentos institucionales.
                         </p>
                         <div className="brand-metrics" aria-label="Información del sistema">
                             <div className="metric-item">
-                                <div className="metric-icon">&#128189;</div>
                                 <div className="metric-text">
-                                    <span className="metric-value">1 </span>
-                                    <span className="metric-label">Auditorias Periodicas de integirdad y seguridad de la información
-                                    </span>
+                                    <span className="metric-value">160.000+</span>
+                                    <span className="metric-label">Registros documentales</span>
                                 </div>
                             </div>
                             <div className="metric-item">
-                                <div className="metric-icon">&#128100;</div>
                                 <div className="metric-text">
-                                    <span className="metric-value">4 </span>
-                                    <span className="metric-label">Atencion especializada en el manejo de datos</span>
-                                </div>
-                            </div>
-                            <div className="metric-item">
-                                <div className="metric-icon">&#128274;</div>
-                                <div className="metric-text">
-                                    <span className="metric-value">3 </span>
-                                    <span className="metric-label">Somos un sistema confiable y seguro para la gestión de documentos.</span>
+                                    <span className="metric-value">12</span>
+                                    <span className="metric-label">Usuarios del sistema</span>
                                 </div>
                             </div>
                         </div>

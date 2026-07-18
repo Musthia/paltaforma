@@ -64,7 +64,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.85)), url("/images/login/login.png") center / cover no-repeat;
+  background: var(--color-surface-elevated);
   padding: var(--space-6);
   font-family: var(--font-family);
   font-size: var(--font-size-base);
@@ -76,7 +76,7 @@
   width: 100%;
   max-width: 960px;
   min-height: 520px;
-  background: transparent;
+  background: var(--color-surface);
   border-radius: var(--radius-xl);
   box-shadow: var(--shadow-lg);
   overflow: hidden;
@@ -121,16 +121,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2px;
   font-size: 22px;
   font-weight: 700;
   color: var(--color-primary);
   box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-}
-
-.brand-logo-img {
-  height: 28px;
-  width: auto;
 }
 
 .brand-title {
@@ -163,26 +157,7 @@
   background: rgba(255,255,255,0.06);
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: var(--radius-md);
-  cursor: default;
-  transition: background var(--transition-base), border-color var(--transition-base), transform var(--transition-base), box-shadow var(--transition-base);
-}
-
-.metric-item:hover {
-  background: rgba(255,255,255,0.10);
-  border-color: rgba(255,255,255,0.18);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
-}
-
-.metric-icon {
-  font-size: 16px;
-  opacity: 0.7;
-  transition: opacity var(--transition-base), transform var(--transition-base);
-}
-
-.metric-item:hover .metric-icon {
-  opacity: 1;
-  transform: scale(1.15);
+  transition: background var(--transition-base), border-color var(--transition-base);
 }
 
 .metric-value {
@@ -226,8 +201,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(12px);
+  background: var(--color-surface);
 }
 
 .form-wrapper {

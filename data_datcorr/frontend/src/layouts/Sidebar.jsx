@@ -16,7 +16,7 @@ export default function Sidebar() {
     const perms = usePermissions();
 
     const menu = [
-        { label: "Dashboard", path: "/dashboard", external: false },
+        { label: "Panel de Control", path: "/dashboard", external: false },
         ...(perms.canViewUsers ? [{ label: "Usuarios", path: "/usuarios", external: false }] : []),
         { label: "Consultar Bases", path: "/database", external: false },
         { label: "Carga de Datos", path: "/carga-datos", external: false },
@@ -48,7 +48,7 @@ export default function Sidebar() {
         navigate("/");
     };
 
-    const nombre = user?.full_name || user?.sub || "Usuario";
+    const nombre = user?.sub || "Usuario";
     const inicial = nombre.charAt(0).toUpperCase();
     const rol = user?.role || "";
     const nivel = user?.nivel !== null && user?.nivel !== undefined ? `Nivel ${user.nivel}` : "";
@@ -156,7 +156,7 @@ export default function Sidebar() {
                             onMouseEnter={(e) => e.currentTarget.style.opacity = "0.9"}
                             onMouseLeave={(e) => e.currentTarget.style.opacity = "1"}
                         >
-                            <span style={{ fontSize: 16 }}>↗</span>
+                            <span style={{ fontSize: 16 }}></span>
                             <span>SIMCO</span>
                         </div>
                     </>
