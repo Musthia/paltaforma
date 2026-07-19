@@ -25,7 +25,7 @@ WORKDIR /app
 
 COPY platformcore/ ./platformcore/
 COPY simco_v01/backend/ ./simco_v01/backend/
-COPY data_datcorr/backend/ ./data_datcorr/backend/
+COPY data_datcorr/ ./data_datcorr/
 
 COPY --from=datcorr-frontend /app/data_datcorr/frontend/dist ./data_datcorr/frontend/dist
 COPY --from=simco-frontend /app/simco_v01/frontend/dist ./simco_v01/frontend/dist
