@@ -156,7 +156,7 @@ _datcorr_dist = os.path.join(
 if os.path.isdir(_datcorr_dist):
     _datcorr_assets = os.path.join(_datcorr_dist, "assets")
     if os.path.isdir(_datcorr_assets):
-        app.mount("/app/assets", StaticFiles(directory=_datcorr_assets), name="datcorr_assets")
+        app.mount("/assets", StaticFiles(directory=_datcorr_assets), name="datcorr_assets")
 
     @app.get("/app")
     async def serve_datcorr_root():
@@ -195,7 +195,6 @@ if os.path.isdir(_simco_dist):
     _simco_assets = os.path.join(_simco_dist, "assets")
     if os.path.isdir(_simco_assets):
         app.mount("/simco/assets", StaticFiles(directory=_simco_assets), name="simco_assets")
-        app.mount("/assets", StaticFiles(directory=_simco_assets), name="simco_assets_root")
 
     @app.get("/simco")
     async def serve_simco_root():
